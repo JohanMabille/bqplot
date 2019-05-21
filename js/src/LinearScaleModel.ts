@@ -14,9 +14,10 @@
  */
 
 import * as _  from 'underscore';
-import * as d3 from 'd3';
-// var d3 =Object.assign({}, require("d3-array"));
 import { ScaleModel } from './ScaleModel';
+// d3 imports
+import * as d3Array from 'd3-array';
+const d3 = {...d3Array};
 
 export function convert_to_date(elem: string): Date {
     if(elem === undefined || elem === null) {

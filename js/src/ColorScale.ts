@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-import * as d3 from 'd3';
-// var d3 =Object.assign({}, require("d3-scale"));
 import { Scale } from './Scale';
 import { ColorScaleModel } from './ColorScaleModel';
+// d3 import
+import * as d3Scale from 'd3-scale';
+const d3 = {...d3Scale};
 
 export class ColorScale extends Scale {
 

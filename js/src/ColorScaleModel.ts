@@ -14,10 +14,12 @@
  */
 
 import * as _ from 'underscore';
-import * as d3 from 'd3';
-// var d3 =Object.assign({}, require("d3-array"), require("d3-scale"));
 import { LinearScaleModel } from './LinearScaleModel';
 import * as colorutils from './ColorUtils';
+// d3 imports
+import * as d3Array from 'd3-array';
+import * as d3Scale from 'd3-scale';
+const d3 = {...d3Array, ...d3Scale};
 
 export class ColorScaleModel extends LinearScaleModel {
 

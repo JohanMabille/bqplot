@@ -13,10 +13,12 @@
  * limitations under the License.
  */
 
-import * as d3 from 'd3';
-// var d3 =Object.assign({}, require("d3-scale"));
 import { Scale } from './Scale';
 import * as _ from 'underscore';
+// d3 import
+import * as d3Scale from 'd3-scale';
+import * as d3Array from 'd3-array';
+const d3 = {...d3Array, ...d3Scale};
 
 export class OrdinalScale extends Scale {
 

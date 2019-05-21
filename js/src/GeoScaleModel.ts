@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-import * as d3 from 'd3';
-// var d3 =Object.assign({}, require("d3-geo"));
 import { ScaleModel } from './ScaleModel';
+// d3 imports
+import * as d3Geo from 'd3-geo';
+const d3 = {...d3Geo };
 
 export class GeoScaleModel extends ScaleModel {
 

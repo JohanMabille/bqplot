@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-import * as d3 from 'd3';
-// var d3 =Object.assign({}, require("d3-scale"));
 import { LinearScale } from './LinearScale';
+// d3 import
+import * as d3Scale from 'd3-scale';
+const d3 = {...d3Scale};
 
 export class DateScale extends LinearScale {
     render() {

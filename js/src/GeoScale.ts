@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-import * as d3 from 'd3';
-// var d3 =Object.assign({}, require("d3-geo"));
 import * as widgets from '@jupyter-widgets/base';
 import { GeoScaleModel } from './GeoScaleModel'
+// d3 import
+import * as d3Geo from 'd3-geo';
+const d3 = {...d3Geo};
 
 export class GeoScale extends widgets.WidgetView {
 
