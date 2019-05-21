@@ -14,11 +14,12 @@
  */
 
 import { ColorScaleModel } from './ColorScaleModel';
+import { convert_to_date } from './LinearScaleModel';
 
 export class DateColorScaleModel extends ColorScaleModel {
 
     defaults() {
-        return {...ColorScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "DateColorScaleModel",
             _view_name: "DateColorScale"
         };
@@ -33,8 +34,8 @@ export class DateColorScaleModel extends ColorScaleModel {
     }
 
     min_max_changed() {
-        this.min = this.get_date_elem("min");
-        this.max = this.get_date_elem("max");
+        this.min = convert_to_date(this.get("min"));
+        this.max = convert_to_date(this.get("max"));
         this.min_from_data = (this.min === null);
         this.max_from_data = (this.max === null);
         this.update_domain();

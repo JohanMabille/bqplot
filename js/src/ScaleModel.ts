@@ -13,13 +13,20 @@
  * limitations under the License.
  */
 
-import { BaseModel } from './BaseModel';
 import { semver_range } from './version';
+import { ManagerBase, WidgetModel } from '@jupyter-widgets/base';
 
-export abstract class ScaleModel extends BaseModel {
+export interface IModelOptions
+{
+    model_id: string;
+    comm?: any;
+    widget_manager: ManagerBase<any>;
+}
+
+export abstract class ScaleModel extends WidgetModel {
 
     defaults() {
-        return {...BaseModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "ScaleModel",
              _view_name: "Scale",
             _model_module: "bqplot",
@@ -31,7 +38,7 @@ export abstract class ScaleModel extends BaseModel {
         };
     }
 
-    initialize(attributes, options) {
+    initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
         super.initialize(attributes, options);
         this.domains = {};
         this.domain = [];
@@ -43,11 +50,7 @@ export abstract class ScaleModel extends BaseModel {
         this.type = "base";
     }
 
-    set_listeners() {
-        // Function to be implementd by inherited classes.
-    }
-
-    set_domain(domain, id) {
+    set_domain(domain: any[], id: string) {
         // Call function only if you have computed the domain yourself. If
         // you want the scale to compute the domain based on the data for
         // your scale view, then call compute_and_set_domain
@@ -55,7 +58,7 @@ export abstract class ScaleModel extends BaseModel {
         this.update_domain();
     }
 
-    del_domain(domain, id) {
+    del_domain(domain: any[], id: string) {
         if(this.domains[id] !== undefined) {
             delete this.domains[id];
             this.update_domain();
@@ -69,11 +72,12 @@ export abstract class ScaleModel extends BaseModel {
             return this.domain.slice();
     }
 
+    abstract set_listeners();
     abstract compute_and_set_domain(data_array, id);
     abstract update_domain();
 
     domains: any;
-    domain: Array<number>;
+    domain: number[];
     reverse: boolean;
     type: string;
 }

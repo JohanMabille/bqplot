@@ -18,10 +18,17 @@ import * as d3 from 'd3';
 // var d3 =Object.assign({}, require("d3-array"));
 import { ScaleModel } from './ScaleModel';
 
+export function convert_to_date(elem: string): Date {
+    if(elem === undefined || elem === null) {
+        return null;
+    }
+    return new Date(elem);
+}
+
 export class LinearScaleModel extends ScaleModel {
 
     defaults() {
-        return {...ScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "LinearScaleModel",
             _view_name: "LinearScale",
             min: null,
@@ -118,7 +125,6 @@ export class LinearScaleModel extends ScaleModel {
         this.set_domain([min, max], id);
     }
 
-    type: string;
     min: number | Date;
     max: number | Date;
     min_from_data: boolean;

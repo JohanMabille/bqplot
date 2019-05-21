@@ -20,10 +20,13 @@ import { ScaleModel } from './ScaleModel';
 export class GeoScaleModel extends ScaleModel {
 
     defaults() {
-        return {...ScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "GeoScaleModel",
             _view_name: "GeoScale"
         };
+    }
+
+    set_listeners() {
     }
 
     compute_and_set_domain(data_array, id) {
@@ -38,7 +41,7 @@ export class GeoScaleModel extends ScaleModel {
 export class MercatorModel extends GeoScaleModel {
 
     defaults() {
-        return {...GeoScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "MercatorModel",
             _view_name: "Mercator",
             scale_factor: 190.0,
@@ -69,7 +72,7 @@ export class MercatorModel extends GeoScaleModel {
 export class AlbersModel extends GeoScaleModel {
 
     defaults() {
-        return {...GeoScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "AlbersModel",
             _view_name: "Albers",
             scale_factor: 250.0,
@@ -105,7 +108,7 @@ export class AlbersModel extends GeoScaleModel {
 export class AlbersUSAModel extends GeoScaleModel {
 
     defaults() {
-        return {...GeoScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "AlbersUSAModel",
             _view_name: "AlbersUSA",
             scale_factor: 1200,
@@ -134,7 +137,7 @@ export class AlbersUSAModel extends GeoScaleModel {
 export class EquiRectangularModel extends GeoScaleModel {
 
     defaults() {
-        return {...GeoScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "EquiRectangularModel",
             _view_name: "EquiRectangular",
             scale_factor: 145.0
@@ -162,7 +165,7 @@ export class EquiRectangularModel extends GeoScaleModel {
 export class OrthographicModel extends GeoScaleModel {
 
     defaults() {
-        return {...GeoScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "OrthographicModel",
             _view_name: "Orthographic",
             scale_factor: 145.0,
@@ -197,7 +200,7 @@ export class OrthographicModel extends GeoScaleModel {
 export class GnomonicModel extends GeoScaleModel {
 
     defaults() {
-        return {...GeoScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "GnomonicModel",
             _view_name: "Gnomonic",
             scale_factor: 145.0,
@@ -229,7 +232,7 @@ export class GnomonicModel extends GeoScaleModel {
 export class StereographicModel extends GeoScaleModel {
 
     defaults() {
-        return {...GeoScaleModel.prototype.defaults(),
+        return {...super.defaults(),
             _model_name: "StereographicModel",
             _view_name: "StereographicModel",
             scale_factor: 245,

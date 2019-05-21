@@ -19,16 +19,12 @@ import * as _ from 'underscore';
 export class OrdinalScaleModel extends ScaleModel {
 
     defaults() {
-        return {...ScaleModel.prototype.defaults(), 
+        return {...super.defaults(), 
             _model_name: "OrdinalScaleModel",
             _view_name: "OrdinalScale",
             min: null,
             max: null,
         };
-    }
-
-    initialize(attributes, options) {
-        super.initialize(attributes, options);
     }
 
     set_init_state() {
