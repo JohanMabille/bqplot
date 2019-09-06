@@ -35,7 +35,10 @@ module.exports = [
             rules: rules
         },
         externals: ['@jupyter-widgets/base'],
-        mode: 'production'
+        mode: 'production',
+        optimization: {
+            minimize: false
+        }
     },
     {// bqplot bundle for unpkg.
         entry: './lib/index-embed.js',

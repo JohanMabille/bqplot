@@ -64,7 +64,7 @@ export class ColorScaleModel extends LinearScaleModel {
         }
     }
 
-    create_domain(min, mid, max, n_colors) {
+    private create_domain(min, mid, max, n_colors) {
         // Domain ranges from min to max, with the same number of
         // elements as the color range
         const scale = d3.scaleLinear()
@@ -84,7 +84,7 @@ export class ColorScaleModel extends LinearScaleModel {
         return domain;
     }
 
-    colors_changed() {
+    private colors_changed() {
         const colors = this.get("colors");
         this.color_range = colors.length > 0 ? colors :
             colorutils.get_linear_scale_range(this.get("scheme"));
@@ -100,6 +100,5 @@ export class ColorScaleModel extends LinearScaleModel {
     }
 
     color_range: Array<number>;
-    mid: number;
-    reverse: boolean;
+    protected mid: number;
 }

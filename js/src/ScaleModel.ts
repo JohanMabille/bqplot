@@ -46,10 +46,6 @@ export abstract class ScaleModel extends WidgetModel {
         this.set_listeners();
     }
 
-    set_init_state() {
-        this.type = "base";
-    }
-
     set_domain(domain: any[], id: string) {
         // Call function only if you have computed the domain yourself. If
         // you want the scale to compute the domain based on the data for
@@ -72,12 +68,13 @@ export abstract class ScaleModel extends WidgetModel {
             return this.domain.slice();
     }
 
+    abstract set_init_state();
     abstract set_listeners();
     abstract compute_and_set_domain(data_array, id);
     abstract update_domain();
 
-    domains: any;
+    protected domains: any;
     domain: number[];
-    reverse: boolean;
-    type: string;
+    protected reverse: boolean;
+    protected type: string;
 }

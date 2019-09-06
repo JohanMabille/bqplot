@@ -27,6 +27,10 @@ export class GeoScaleModel extends ScaleModel {
         };
     }
 
+    set_init_state() {
+        this.type = "geo";
+    }
+
     set_listeners() {
     }
 

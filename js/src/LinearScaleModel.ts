@@ -126,10 +126,10 @@ export class LinearScaleModel extends ScaleModel {
         this.set_domain([min, max], id);
     }
 
-    min: number | Date;
-    max: number | Date;
-    min_from_data: boolean;
-    max_from_data: boolean;
-    global_min: number | Date;
-    global_max: number | Date;
+    protected min: number | Date;
+    protected max: number | Date;
+    protected min_from_data: boolean;
+    protected max_from_data: boolean;
+    protected global_min: number | Date;
+    protected global_max: number | Date;
 }
