@@ -13,15 +13,17 @@
  * limitations under the License.
  */
 
-import { ColorScale } from './ColorScale';
-// d3 import
 import * as d3Scale from 'd3-scale';
 const d3 = {...d3Scale};
 
-export class DateColorScale extends ColorScale {
+import {
+  ColorScale
+} from './ColorScale';
 
-    create_d3_scale() {
-        this.scale = d3.scaleTime();
-    }
+export
+class DateColorScale extends ColorScale {
+  create_d3_scale() {
+    this.scale = d3.scaleTime();
+  }
 }
 

@@ -13,68 +13,79 @@
  * limitations under the License.
  */
 
-import { semver_range } from '../version';
-import { ManagerBase, WidgetModel } from '@jupyter-widgets/base';
+import {
+  ManagerBase, WidgetModel
+} from '@jupyter-widgets/base';
 
-export interface IModelOptions
+import {
+  semver_range
+} from '../version';
+
+
+export
+interface IModelOptions
 {
-    model_id: string;
-    comm?: any;
-    widget_manager: ManagerBase<any>;
+  model_id: string;
+  comm?: any;
+  widget_manager: ManagerBase<any>;
 }
 
-export abstract class ScaleModel extends WidgetModel {
+export
+abstract class ScaleModel extends WidgetModel {
+  defaults() {
+    return {...super.defaults(),
+      _model_name: 'ScaleModel',
+       _view_name: 'Scale',
+      _model_module: 'bqplot',
+      _view_module: 'bqplot',
+      _model_module_version: semver_range,
+      _view_module_version: semver_range,
+      reverse: false,
+      allow_padding: true
+    };
+  }
 
-    defaults() {
-        return {...super.defaults(),
-            _model_name: "ScaleModel",
-             _view_name: "Scale",
-            _model_module: "bqplot",
-            _view_module: "bqplot",
-            _model_module_version: semver_range,
-            _view_module_version: semver_range,
-            reverse: false,
-            allow_padding: true
-        };
+  initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
+    super.initialize(attributes, options);
+
+    this.domains = {};
+    this.domain = [];
+
+    this.set_init_state();
+    this.set_listeners();
+  }
+
+  set_domain(domain: any[], id: string) {
+    // Call function only if you have computed the domain yourself. If
+    // you want the scale to compute the domain based on the data for
+    // your scale view, then call compute_and_set_domain
+    this.domains[id] = domain;
+    this.update_domain();
+  }
+
+  del_domain(domain: any[], id: string) {
+    if(this.domains[id] !== undefined) {
+      delete this.domains[id];
+      this.update_domain();
     }
+  }
 
-    initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
-        super.initialize(attributes, options);
-        this.domains = {};
-        this.domain = [];
-        this.set_init_state();
-        this.set_listeners();
+  get_domain_slice_in_order() {
+    if(this.reverse) {
+      return this.domain.slice().reverse();
+    } else {
+      return this.domain.slice();
     }
+  }
 
-    set_domain(domain: any[], id: string) {
-        // Call function only if you have computed the domain yourself. If
-        // you want the scale to compute the domain based on the data for
-        // your scale view, then call compute_and_set_domain
-        this.domains[id] = domain;
-        this.update_domain();
-    }
+  abstract set_init_state();
+  abstract set_listeners();
+  abstract compute_and_set_domain(data_array, id);
+  abstract update_domain();
 
-    del_domain(domain: any[], id: string) {
-        if(this.domains[id] !== undefined) {
-            delete this.domains[id];
-            this.update_domain();
-        }
-    }
+  domain: number[];
 
-    get_domain_slice_in_order() {
-        if(this.reverse)
-            return this.domain.slice().reverse();
-        else
-            return this.domain.slice();
-    }
-
-    abstract set_init_state();
-    abstract set_listeners();
-    abstract compute_and_set_domain(data_array, id);
-    abstract update_domain();
-
-    protected domains: any;
-    domain: number[];
-    protected reverse: boolean;
-    protected type: string;
+  protected domains: any;
+  protected reverse: boolean;
+  protected type: string;
 }

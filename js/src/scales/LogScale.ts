@@ -13,19 +13,23 @@
  * limitations under the License.
  */
 
-import { LinearScale } from './LinearScale';
-// d3 import
 import * as d3Scale from 'd3-scale';
 const d3 = {...d3Scale};
 
-export class LogScale extends LinearScale {
-    render() {
-        this.scale = d3.scaleLog();
-        if(this.model.domain.length > 0) {
-            this.scale.domain(this.model.domain);
-        }
-        this.offset = 0;
-        this.create_event_listeners();
+import {
+  LinearScale
+} from './LinearScale';
+
+
+export
+class LogScale extends LinearScale {
+  render() {
+    this.scale = d3.scaleLog();
+    if(this.model.domain.length > 0) {
+      this.scale.domain(this.model.domain);
     }
+    this.offset = 0;
+    this.create_event_listeners();
+  }
 }
 

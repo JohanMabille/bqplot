@@ -13,29 +13,33 @@
  * limitations under the License.
  */
 
-import { LinearScaleModel, convert_to_date } from './LinearScaleModel';
 import * as _ from 'underscore';
 
-export class DateScaleModel extends LinearScaleModel{
+import {
+  LinearScaleModel, convert_to_date
+} from './LinearScaleModel';
 
-    defaults() {
-        return {...super.defaults(),
-            _model_name: "DateScaleModel",
-            _view_name: "DateScale",
-        };
-    }
+export
+class DateScaleModel extends LinearScaleModel{
+  defaults() {
+    return {...super.defaults(),
+      _model_name: 'DateScaleModel',
+      _view_name: 'DateScale',
+    };
+  }
 
-    set_init_state() {
-        this.type = "date";
-        this.global_min = (new Date()).setTime(0);
-        this.global_max = new Date();
-    }
+  set_init_state() {
+    this.type = 'date';
+    this.global_min = (new Date()).setTime(0);
+    this.global_max = new Date();
+  }
 
-    min_max_changed() {
-        this.min = convert_to_date(this.get("min"));
-        this.max = convert_to_date(this.get("max"));
-        this.min_from_data = (this.min === null);
-        this.max_from_data = (this.max === null);
-        this.update_domain();
-    }
+  min_max_changed() {
+    this.min = convert_to_date(this.get('min'));
+    this.max = convert_to_date(this.get('max'));
+    this.min_from_data = (this.min === null);
+    this.max_from_data = (this.max === null);
+
+    this.update_domain();
+  }
 }

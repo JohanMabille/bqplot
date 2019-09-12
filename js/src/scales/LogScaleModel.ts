@@ -13,21 +13,23 @@
  * limitations under the License.
  */
 
-import { LinearScaleModel } from './LinearScaleModel';
+import {
+  LinearScaleModel
+} from './LinearScaleModel';
 
-export class LogScaleModel extends LinearScaleModel {
+export
+class LogScaleModel extends LinearScaleModel {
+  defaults() {
+    return {...super.defaults(),
+      _model_name: 'LogScaleModel',
+      _view_name: 'LogScale',
+      domain: []
+    };
+  }
 
-    defaults() {
-        return {...super.defaults(),
-            _model_name: "LogScaleModel",
-            _view_name: "LogScale",
-            domain: []
-        };
-    }
-
-    set_init_state() {
-        this.type = "log";
-        this.global_min = Number.MIN_VALUE;
-        this.global_max = Number.POSITIVE_INFINITY;
-    }
+  set_init_state() {
+    this.type = 'log';
+    this.global_min = Number.MIN_VALUE;
+    this.global_max = Number.POSITIVE_INFINITY;
+  }
 }

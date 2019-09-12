@@ -13,47 +13,53 @@
  * limitations under the License.
  */
 
-import { Scale } from './Scale';
-import { ColorScaleModel } from './ColorScaleModel';
-// d3 import
+import {
+  Scale
+} from './Scale';
+
+import {
+  ColorScaleModel
+} from './ColorScaleModel';
+
 import * as d3Scale from 'd3-scale';
 const d3 = {...d3Scale};
 
 export class ColorScale extends Scale {
-
-    render(){
-        this.create_d3_scale();
-        this.update_extrapolation();
-        if(this.model.domain.length > 0) {
-            this.scale.domain(this.model.domain);
-        }
-        this.offset = 0;
-        this.create_event_listeners();
-        this.set_range();
+  render(){
+    this.create_d3_scale();
+    this.update_extrapolation();
+    if(this.model.domain.length > 0) {
+        this.scale.domain(this.model.domain);
     }
+    this.offset = 0;
+    this.create_event_listeners();
+    this.set_range();
+  }
 
-    create_d3_scale(){
-        this.scale = d3.scaleLinear();
-    }
+  create_d3_scale(){
+    this.scale = d3.scaleLinear();
+  }
 
-    create_event_listeners() {
-        super.create_event_listeners();
-        this.listenTo(this.model, "colors_changed", this.set_range);
-        this.model.on("change:extrapolation", function() {
-            this.update_extrapolation();
-            this.trigger("color_scale_range_changed"); }, this);
-    }
+  create_event_listeners() {
+    super.create_event_listeners();
 
-    update_extrapolation() {
-        this.scale.clamp((this.model.get("extrapolation") === "constant"));
-    }
+    this.listenTo(this.model, 'colors_changed', this.set_range);
+    this.model.on('change:extrapolation', () => {
+      this.update_extrapolation();
+      this.trigger('color_scale_range_changed');
+    });
+  }
 
-    set_range() {
-        this.scale.range(this.model.color_range);
-        this.trigger("color_scale_range_changed");
-    }
+  update_extrapolation() {
+    this.scale.clamp((this.model.get('extrapolation') === 'constant'));
+  }
 
-    // Overriding super class
-    model: ColorScaleModel;
+  set_range() {
+    this.scale.range(this.model.color_range);
+    this.trigger('color_scale_range_changed');
+  }
+
+  // Overriding super class
+  model: ColorScaleModel;
 }
 
