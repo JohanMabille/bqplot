@@ -15,7 +15,7 @@
 
 import * as d3 from 'd3';
 // var d3 =Object.assign({}, require("d3-array"), require("d3-scale"));
-import colorbrewer from './colorbrewer';
+import colorbrewer from './ColorBrewer';
 
 const default_scheme = 'RdYlGn'
 //

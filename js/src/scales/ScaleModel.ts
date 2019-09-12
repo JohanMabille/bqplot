@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { semver_range } from './version';
+import { semver_range } from '../version';
 import { ManagerBase, WidgetModel } from '@jupyter-widgets/base';
 
 export interface IModelOptions
