@@ -24,10 +24,13 @@ export
 class LinearScale extends Scale {
   render() {
     super.render();
-    this.scale = d3.scaleLinear();
     if(this.model.domain.length > 0) {
       this.scale.domain(this.model.domain);
     }
+  }
+
+  protected create_d3_scale() {
+    this.scale = d3.scaleLinear();
   }
 
   expand_domain(old_range, new_range) {

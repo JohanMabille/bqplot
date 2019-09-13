@@ -21,9 +21,10 @@ import {
 
 
 export
-class Scale extends widgets.WidgetView {
+abstract class Scale extends widgets.WidgetView {
   render() {
     this.offset = 0;
+    this.create_d3_scale();
     this.create_event_listeners();
   }
 
@@ -65,6 +66,8 @@ class Scale extends widgets.WidgetView {
   protected unhighlight_axis() {
     this.trigger('unhighlight_axis');
   }
+
+  protected abstract create_d3_scale();
 
   offset: number;
   scale: any;

@@ -24,10 +24,13 @@ export
 class DateScale extends LinearScale {
   render() {
     super.render();
-    this.scale = d3.scaleTime();
     if(this.model.domain.length > 0) {
       this.scale.domain(this.model.domain);
     }
+  }
+
+  protected create_d3_scale() {
+    this.scale = d3.scaleTime();
   }
 }
 

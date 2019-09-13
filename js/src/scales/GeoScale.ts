@@ -16,26 +16,29 @@
 import * as d3Geo from 'd3-geo';
 const d3 = {...d3Geo};
 
-import * as widgets from '@jupyter-widgets/base';
+import {
+  Scale
+} from './Scale';
 
 import {
   GeoScaleModel
 } from './GeoScaleModel'
 
+
 export
-class GeoScale extends widgets.WidgetView {
+class GeoScale extends Scale {
   render() {
-    this.set_projection();
+    super.render();
     this.listenTo(this.model, 'attribute_changed', this.reset_scale);
   }
 
-  set_projection() {
+  protected create_d3_scale() {
     this.path = d3.geoPath().projection(this.model.projection);
     this.scale = this.model.projection;
   }
 
   reset_scale() {
-    this.set_projection();
+    this.create_d3_scale();
     this.trigger('domain_changed', null);
   }
 
@@ -65,4 +68,3 @@ class Gnomonic extends GeoScale {}
 
 export
 class Stereographic extends GeoScale {}
-

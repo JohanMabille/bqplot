@@ -22,7 +22,7 @@ import {
 
 export
 class DateColorScale extends ColorScale {
-  create_d3_scale() {
+  protected create_d3_scale() {
     this.scale = d3.scaleTime();
   }
 }

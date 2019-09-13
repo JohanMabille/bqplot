@@ -27,10 +27,13 @@ export
 class OrdinalColorScale extends Scale {
   render(){
     super.render();
-    this.scale = d3.scaleOrdinal();
     this.scale.domain(this.model.domain);
     this.model.on_some_change(['colors', 'scheme'], this.colors_changed, this);
     this.set_range();
+  }
+
+  protected create_d3_scale() {
+    this.scale = d3.scaleOrdinal();
   }
 
   set_range() {

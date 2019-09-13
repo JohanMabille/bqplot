@@ -24,10 +24,10 @@ import {
 import * as d3Scale from 'd3-scale';
 const d3 = {...d3Scale};
 
-export class ColorScale extends Scale {
+export
+class ColorScale extends Scale {
   render(){
     super.render();
-    this.create_d3_scale();
     this.update_extrapolation();
     if(this.model.domain.length > 0) {
         this.scale.domain(this.model.domain);
@@ -35,7 +35,7 @@ export class ColorScale extends Scale {
     this.set_range();
   }
 
-  create_d3_scale(){
+  protected create_d3_scale(){
     this.scale = d3.scaleLinear();
   }
 
