@@ -17,6 +17,14 @@ import * as d3 from 'd3';
 // var d3 =Object.assign({}, require("d3-axis"), require("d3-scale"), require("d3-selection"), require("d3-selection-multi"));
 import { Axis } from './Axis';
 
+import {
+  ColorScaleModel
+} from './scales/ColorScaleModel';
+
+import {
+  ColorScale
+} from './scales/ColorScale';
+
 class ColorBar extends Axis {
 
     render() {
@@ -90,11 +98,12 @@ class ColorBar extends Axis {
         this.redraw_axisline();
     }
 
-    set_scale(model) {
+    set_scale(model: ColorScaleModel) {
         // Sets the child scale
         const that = this;
         if (this.axis_scale) { this.axis_scale.remove(); }
-        return this.create_child_view(model).then(function(view) {
+        // @ts-ignore
+        return this.create_child_view(model).then(function(view: ColorScale) {
             // Trigger the displayed event of the child view.
             that.displayed.then(function() {
                 view.trigger("displayed");
@@ -358,7 +367,7 @@ class ColorBar extends Axis {
             } else {
                 this.axis_line_scale.domain([domain[0], mid, domain[domain.length-1]]);
             }
-        } 
+        }
     }
 
     redraw_axis() {
@@ -366,6 +375,7 @@ class ColorBar extends Axis {
         this.redraw_axisline();
     }
 
+    axis_scale: ColorScale;
     axis_line_scale: any;
     ordinal: boolean;
     bar_height: number;

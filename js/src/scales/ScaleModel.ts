@@ -84,9 +84,9 @@ abstract class ScaleModel extends WidgetModel {
   protected abstract set_listeners();
   protected abstract update_domain();
 
+  type: string;
   domain: number[];
 
   protected domains: any;
   protected reverse: boolean;
-  protected type: string;
 }

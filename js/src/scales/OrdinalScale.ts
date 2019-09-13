@@ -35,7 +35,7 @@ class OrdinalScale extends Scale {
     this.scale = d3.scaleBand();
   }
 
-  set_range(range, padding) {
+  set_range(range, padding=undefined) {
     padding = (padding === undefined) ? 0 : padding;
     this.scale.range(range);
     this.scale.paddingInner(padding);

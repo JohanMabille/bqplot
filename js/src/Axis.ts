@@ -13,12 +13,24 @@
  * limitations under the License.
  */
 
-import { WidgetView } from '@jupyter-widgets/base';
-import * as d3 from 'd3';
-import 'd3-selection-multi';
-// const d3 =Object.assign({}, require("d3-axis"), require("d3-format"), require("d3-selection"), require("d3-selection-multi"), require("d3-time"), require("d3-time-format"));
-import * as utils from './utils';
 import * as _ from 'underscore';
+
+import * as d3 from 'd3';
+
+import {
+  WidgetView
+} from '@jupyter-widgets/base';
+
+import {
+  ScaleModel
+} from './scales/ScaleModel';
+
+import {
+  Scale
+} from './scales/Scale';
+
+import 'd3-selection-multi';
+import * as utils from './utils';
 
 // Polyfill for Math.log10 in IE11
 Math.log10 = Math.log10 || function(x) {
@@ -158,7 +170,7 @@ export class Axis extends WidgetView {
         }
         if(this.model.get("tick_format") === null ||
             this.model.get("tick_format") === undefined) {
-                if(this.axis_scale.type !== "ordinal") {
+                if(this.axis_scale.model.type !== "ordinal") {
                     this.tick_format = this.guess_tick_format(this.axis.tickValues());
                 }
         }
@@ -692,10 +704,11 @@ export class Axis extends WidgetView {
         }
     }
 
-    set_scale_promise(model) {
+    set_scale_promise(model: ScaleModel) {
         // Sets the child scale
         if (this.axis_scale) { this.axis_scale.remove(); }
-        return this.create_child_view(model).then((view) => {
+        // @ts-ignore
+        return this.create_child_view(model).then((view: Scale) => {
             // Trigger the displayed event of the child view.
             this.displayed.then(() => {
                 view.trigger("displayed");
@@ -898,7 +911,7 @@ export class Axis extends WidgetView {
         }
     }
 
-    axis_scale: any;
+    axis_scale: Scale;
     axis: any;
     d3el: any;
     g_axisline: any;

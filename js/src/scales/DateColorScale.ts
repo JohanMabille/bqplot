@@ -26,4 +26,3 @@ class DateColorScale extends ColorScale {
     this.scale = d3.scaleTime();
   }
 }
-

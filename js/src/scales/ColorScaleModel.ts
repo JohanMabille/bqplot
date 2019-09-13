@@ -103,5 +103,5 @@ class ColorScaleModel extends LinearScaleModel {
   }
 
   color_range: Array<number>;
-  protected mid: number;
+  mid: number;
 }

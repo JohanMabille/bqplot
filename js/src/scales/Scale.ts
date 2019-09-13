@@ -34,7 +34,7 @@ abstract class Scale extends widgets.WidgetView {
     this.listenTo(this.model, 'unhighlight_axis', this.unhighlight_axis);
   }
 
-  set_range(range: any[], padding) {
+  set_range(range: any[], padding=undefined) {
     this.scale.range(range);
   }
 
