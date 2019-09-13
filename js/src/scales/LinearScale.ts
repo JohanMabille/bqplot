@@ -23,12 +23,11 @@ import {
 export
 class LinearScale extends Scale {
   render() {
+    super.render();
     this.scale = d3.scaleLinear();
     if(this.model.domain.length > 0) {
       this.scale.domain(this.model.domain);
     }
-    this.offset = 0;
-    this.create_event_listeners();
   }
 
   expand_domain(old_range, new_range) {

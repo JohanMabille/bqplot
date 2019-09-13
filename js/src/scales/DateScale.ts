@@ -23,12 +23,11 @@ import {
 export
 class DateScale extends LinearScale {
   render() {
+    super.render();
     this.scale = d3.scaleTime();
     if(this.model.domain.length > 0) {
       this.scale.domain(this.model.domain);
     }
-    this.offset = 0;
-    this.create_event_listeners();
   }
 }
 

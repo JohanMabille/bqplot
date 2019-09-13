@@ -27,10 +27,9 @@ import {
 export
 class OrdinalScale extends Scale {
   render() {
+    super.render();
     this.scale = d3.scaleBand();
     this.scale.domain(this.model.domain);
-    this.offset = 0;
-    this.create_event_listeners();
   }
 
   set_range(range, padding) {

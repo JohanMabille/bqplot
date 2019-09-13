@@ -24,12 +24,11 @@ import {
 export
 class LogScale extends LinearScale {
   render() {
+    super.render();
     this.scale = d3.scaleLog();
     if(this.model.domain.length > 0) {
       this.scale.domain(this.model.domain);
     }
-    this.offset = 0;
-    this.create_event_listeners();
   }
 }
 

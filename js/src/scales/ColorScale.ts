@@ -26,13 +26,12 @@ const d3 = {...d3Scale};
 
 export class ColorScale extends Scale {
   render(){
+    super.render();
     this.create_d3_scale();
     this.update_extrapolation();
     if(this.model.domain.length > 0) {
         this.scale.domain(this.model.domain);
     }
-    this.offset = 0;
-    this.create_event_listeners();
     this.set_range();
   }
 
@@ -40,7 +39,7 @@ export class ColorScale extends Scale {
     this.scale = d3.scaleLinear();
   }
 
-  create_event_listeners() {
+  protected create_event_listeners() {
     super.create_event_listeners();
 
     this.listenTo(this.model, 'colors_changed', this.set_range);

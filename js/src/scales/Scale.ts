@@ -24,23 +24,24 @@ export
 class Scale extends widgets.WidgetView {
   render() {
     this.offset = 0;
+    this.create_event_listeners();
   }
 
-  create_event_listeners() {
+  protected create_event_listeners() {
     this.listenTo(this.model, 'domain_changed', this.model_domain_changed);
     this.listenTo(this.model, 'highlight_axis', this.highlight_axis);
     this.listenTo(this.model, 'unhighlight_axis', this.unhighlight_axis);
   }
 
-  set_range(range, padding) {
+  set_range(range: any[], padding) {
     this.scale.range(range);
   }
 
-  compute_and_set_domain(array, id) {
+  compute_and_set_domain(array: any[], id: string) {
     this.model.compute_and_set_domain(array, id);
   }
 
-  set_domain(array, id) {
+  set_domain(array: any[], id: string) {
     this.model.set_domain(array, id);
   }
 
@@ -57,7 +58,7 @@ class Scale extends widgets.WidgetView {
     this.trigger('unhighlight_axis');
   }
 
-  expand_domain(old_range, new_range) {
+  expand_domain(old_range: any[], new_range: any[]) {
     // Base class function. No implementation.
     // Implementation is particular to the child class
     // if you have a current range and then a new range and want to
