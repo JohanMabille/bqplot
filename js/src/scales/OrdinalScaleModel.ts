@@ -31,13 +31,13 @@ class OrdinalScaleModel extends ScaleModel {
     };
   }
 
-  set_init_state() {
+  protected set_init_state() {
     this.type = 'ordinal';
     this.min_from_data = true;
     this.max_from_data = true;
   }
 
-  set_listeners() {
+  protected set_listeners() {
     this.on('change:domain', this.domain_changed, this);
     this.domain_changed();
     this.on('change:reverse', this.reverse_changed, this);

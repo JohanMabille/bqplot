@@ -29,11 +29,11 @@ class GeoScaleModel extends ScaleModel {
     };
   }
 
-  set_init_state() {
+  protected set_init_state() {
     this.type = 'geo';
   }
 
-  set_listeners() {
+  protected set_listeners() {
   }
 
   compute_and_set_domain(data_array, id) {

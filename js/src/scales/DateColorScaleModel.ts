@@ -30,7 +30,7 @@ class DateColorScaleModel extends ColorScaleModel {
     };
   }
 
-  set_init_state() {
+  protected set_init_state() {
     this.type = 'date_color_linear';
     this.color_range = [];
     this.mid = null;

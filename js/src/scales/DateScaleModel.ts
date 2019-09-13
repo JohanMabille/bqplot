@@ -28,7 +28,7 @@ class DateScaleModel extends LinearScaleModel{
     };
   }
 
-  set_init_state() {
+  protected set_init_state() {
     this.type = 'date';
     this.global_min = (new Date()).setTime(0);
     this.global_max = new Date();

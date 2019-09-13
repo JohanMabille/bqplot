@@ -44,13 +44,13 @@ class LinearScaleModel extends ScaleModel {
     };
   }
 
-  set_init_state() {
+  protected set_init_state() {
     this.type = 'linear';
     this.global_min = Number.NEGATIVE_INFINITY;
     this.global_max = Number.POSITIVE_INFINITY;
   }
 
-  set_listeners() {
+  protected set_listeners() {
     this.on('change:reverse', this.reverse_changed, this);
     this.reverse_changed(undefined, undefined, undefined);
     this.on_some_change(['min', 'max'], this.min_max_changed, this);

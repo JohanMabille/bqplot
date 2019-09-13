@@ -27,13 +27,13 @@ import * as colorutils from './ColorUtils';
 
 export
 class ColorScaleModel extends LinearScaleModel {
-  set_init_state() {
+  protected set_init_state() {
     this.type = 'color_linear';
     this.color_range = [];
     this.mid = null;
   }
 
-  set_listeners() {
+  protected set_listeners() {
     super.set_listeners();
     this.on_some_change(['colors', 'scheme'], this.colors_changed, this);
     this.on('change:mid', this.update_domain, this);
