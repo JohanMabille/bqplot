@@ -38,12 +38,11 @@ class DateColorScaleModel extends ColorScaleModel {
     this.global_max = new Date();
   }
 
-  min_max_changed() {
+  protected min_max_changed() {
     this.min = convert_to_date(this.get('min'));
     this.max = convert_to_date(this.get('max'));
     this.min_from_data = (this.min === null);
     this.max_from_data = (this.max === null);
-
     this.update_domain();
   }
 
@@ -51,4 +50,3 @@ class DateColorScaleModel extends ColorScaleModel {
     return new Date(value);
   }
 }
-

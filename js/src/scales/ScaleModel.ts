@@ -79,10 +79,10 @@ abstract class ScaleModel extends WidgetModel {
   }
 
   abstract compute_and_set_domain(data_array, id);
-  abstract update_domain();
 
   protected abstract set_init_state();
   protected abstract set_listeners();
+  protected abstract update_domain();
 
   domain: number[];
 

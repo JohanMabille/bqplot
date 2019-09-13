@@ -58,29 +58,7 @@ class LinearScaleModel extends ScaleModel {
     this.on_some_change(['min_range', 'mid_range', 'stabilized'], this.update_domain, this);
   }
 
-  min_max_changed() {
-    this.min = this.get('min');
-    this.max = this.get('max');
-    this.min_from_data = (this.min === null);
-    this.max_from_data = (this.max === null);
-    this.update_domain();
-  }
-
-  reverse_changed(model, value, options) {
-    const prev_reverse = (model === undefined) ? false : model.previous('reverse');
-    this.reverse = this.get('reverse');
-
-    // the domain should be reversed only if the previous value of reverse
-    // is different from the current value. During init, domain should be
-    // reversed only if reverse is set to True.
-    const reverse_domain = (prev_reverse + this.reverse) % 2;
-    if(this.domain.length > 0 && reverse_domain === 1) {
-      this.domain.reverse();
-      this.trigger('domain_changed', this.domain);
-    }
-  }
-
-  update_domain() {
+  protected update_domain() {
     const min = (!this.min_from_data) ?
       this.min : d3.min(_.map(this.domains, (d: any[]) => {
         return d.length > 0 ? d[0] : this.global_max;
@@ -111,6 +89,28 @@ class LinearScaleModel extends ScaleModel {
       const new_min = stabilized ? mid - new_width : min;
       const new_max = stabilized ? mid + new_width : max;
       this.domain = (this.reverse) ? [new_max, new_min] : [new_min, new_max];
+      this.trigger('domain_changed', this.domain);
+    }
+  }
+
+  protected min_max_changed() {
+    this.min = this.get('min');
+    this.max = this.get('max');
+    this.min_from_data = (this.min === null);
+    this.max_from_data = (this.max === null);
+    this.update_domain();
+  }
+
+  private reverse_changed(model, value, options) {
+    const prev_reverse = (model === undefined) ? false : model.previous('reverse');
+    this.reverse = this.get('reverse');
+
+    // the domain should be reversed only if the previous value of reverse
+    // is different from the current value. During init, domain should be
+    // reversed only if reverse is set to True.
+    const reverse_domain = (prev_reverse + this.reverse) % 2;
+    if(this.domain.length > 0 && reverse_domain === 1) {
+      this.domain.reverse();
       this.trigger('domain_changed', this.domain);
     }
   }

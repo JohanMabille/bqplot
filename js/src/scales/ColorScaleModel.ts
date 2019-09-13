@@ -40,7 +40,7 @@ class ColorScaleModel extends LinearScaleModel {
     this.colors_changed();
   }
 
-  update_domain() {
+  protected update_domain() {
     // Compute domain min and max
     const min = (!this.min_from_data) ?
       this.min : d3.min(_.map(this.domains, (d: any[]) => {

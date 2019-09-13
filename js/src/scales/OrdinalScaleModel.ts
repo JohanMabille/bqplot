@@ -44,12 +44,12 @@ class OrdinalScaleModel extends ScaleModel {
     this.reverse_changed();
   }
 
-  domain_changed() {
-    this.ord_domain = this.get('domain');
-    if(this.ord_domain !== null && this.ord_domain.length !== 0) {
+  private domain_changed() {
+    const domain = this.get('domain');
+    if(domain !== null && domain.length !== 0) {
       this.max_from_data = false;
       this.min_from_data = false;
-      this.domain = this.ord_domain.map((d) => { return d; });
+      this.domain = domain.map((d) => { return d; });
       this.trigger('domain_changed');
     } else {
       this.max_from_data = true;
@@ -59,7 +59,7 @@ class OrdinalScaleModel extends ScaleModel {
     }
   }
 
-  reverse_changed(model?) {
+  private reverse_changed(model?) {
     const prev_reverse = (model === undefined) ? false : model.previous('reverse');
     this.reverse = this.get('reverse');
 
@@ -73,7 +73,7 @@ class OrdinalScaleModel extends ScaleModel {
     }
   }
 
-  update_domain() {
+  protected update_domain() {
     let domain = [];
     // TODO: check for hasOwnProperty
     for (let id in this.domains) {
@@ -104,7 +104,6 @@ class OrdinalScaleModel extends ScaleModel {
     this.set_domain(domain, id);
   }
 
-  min_from_data: boolean;
-  max_from_data: boolean;
-  ord_domain: any;
+  private min_from_data: boolean;
+  private max_from_data: boolean;
 }
