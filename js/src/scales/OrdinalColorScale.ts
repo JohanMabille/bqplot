@@ -29,7 +29,6 @@ class OrdinalColorScale extends Scale {
     super.render();
     this.scale = d3.scaleOrdinal();
     this.scale.domain(this.model.domain);
-    this.listenTo(this.model, 'domain_changed', this.model_domain_changed);
     this.model.on_some_change(['colors', 'scheme'], this.colors_changed, this);
     this.set_range();
   }
@@ -43,7 +42,7 @@ class OrdinalColorScale extends Scale {
     this.trigger('color_scale_range_changed');
   }
 
-  model_domain_changed() {
+  protected model_domain_changed() {
     super.model_domain_changed();
     this.set_range();
   }

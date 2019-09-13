@@ -45,25 +45,25 @@ class Scale extends widgets.WidgetView {
     this.model.set_domain(array, id);
   }
 
-  model_domain_changed() {
-    this.scale.domain(this.model.domain);
-    this.trigger('domain_changed');
-  }
-
-  highlight_axis() {
-    this.trigger('highlight_axis');
-  }
-
-  unhighlight_axis() {
-    this.trigger('unhighlight_axis');
-  }
-
   expand_domain(old_range: any[], new_range: any[]) {
     // Base class function. No implementation.
     // Implementation is particular to the child class
     // if you have a current range and then a new range and want to
     // expand the domain to expand to the new range but keep it
     // consistent with the previous one, this is the function you use.
+  }
+
+  protected model_domain_changed() {
+    this.scale.domain(this.model.domain);
+    this.trigger('domain_changed');
+  }
+
+  protected highlight_axis() {
+    this.trigger('highlight_axis');
+  }
+
+  protected unhighlight_axis() {
+    this.trigger('unhighlight_axis');
   }
 
   offset: number;
