@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import * as d3Scale from 'd3-scale';
+const d3Scale: any = require('d3-scale');
 const d3 = {...d3Scale};
 
 import {
@@ -22,7 +22,7 @@ import {
 
 export
 class DateColorScale extends ColorScale {
-  protected create_d3_scale() {
+  protected createD3Scale() {
     this.scale = d3.scaleTime();
   }
 }

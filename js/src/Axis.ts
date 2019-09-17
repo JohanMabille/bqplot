@@ -232,7 +232,7 @@ export class Axis extends WidgetView {
         const target_range = (is_vertical) ?
             this.parent.range("y") : this.parent.range("x");
 
-        this.axis_scale.expand_domain(initial_range, target_range);
+        this.axis_scale.expandDomain(initial_range, target_range);
         this.axis.scale(this.axis_scale.scale);
     }
 
@@ -250,7 +250,7 @@ export class Axis extends WidgetView {
                 this.parent.range("y") :
                 this.parent.range("x");
 
-            this.offset_scale.expand_domain(initial_range, target_range);
+            this.offset_scale.expandDomain(initial_range, target_range);
         }
     }
 
@@ -287,10 +287,10 @@ export class Axis extends WidgetView {
     set_scales_range() {
         const is_vertical = this.model.get("orientation") === "vertical";
 
-        this.axis_scale.set_range((is_vertical) ?
+        this.axis_scale.setRange((is_vertical) ?
             [this.height, 0] : [0, this.width]);
         if(this.offset_scale) {
-            this.offset_scale.set_range((is_vertical) ?
+            this.offset_scale.setRange((is_vertical) ?
                 [0, this.width] : [this.height, 0]);
         }
     }
@@ -641,7 +641,7 @@ export class Axis extends WidgetView {
             this.parent.padded_range("y", this.axis_scale.model) : this.parent.padded_range("x", this.axis_scale.model);
         const target_range = (this.vertical) ?
             this.parent.range("y") : this.parent.range("x");
-        this.axis_scale.expand_domain(initial_range, target_range);
+        this.axis_scale.expandDomain(initial_range, target_range);
         this.axis.scale(this.axis_scale.scale);
     }
 

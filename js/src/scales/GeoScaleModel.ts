@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import * as d3Geo from 'd3-geo';
+const d3Geo: any = require('d3-geo');
 const d3 = {...d3Geo };
 
 import {
-  ScaleModel
+  ScaleModel, IModelOptions
 } from './ScaleModel';
 
 export
@@ -29,17 +29,17 @@ class GeoScaleModel extends ScaleModel {
     };
   }
 
-  protected set_init_state() {
+  protected setInitState() {
     this.type = 'geo';
   }
 
-  protected set_listeners() {
+  protected setListeners() {
   }
 
-  compute_and_set_domain(data_array, id) {
+  computeAndSetDomain(array: any[], id: string) {
   }
 
-  update_domain() {
+  updateDomain() {
   }
 
   projection: any;
@@ -57,21 +57,21 @@ class MercatorModel extends GeoScaleModel {
     };
   }
 
-  initialize(attributes, options) {
+  initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
     super.initialize(attributes, options);
-    this.on_some_change(['scale_factor', 'center', 'rotate'], this.create_projection, this);
-    this.create_projection();
+    this.on_some_change(['scale_factor', 'center', 'rotate'], this.createProjection, this);
+    this.createProjection();
   }
 
-  create_projection() {
+  createProjection() {
     this.projection = d3.geoMercator()
       .center(this.get('center'))
       .scale(this.get('scale_factor'))
       .rotate(this.get('rotate'));
-    this.attribute_changed();
+    this.attributeChanged();
   }
 
-  attribute_changed() {
+  attributeChanged() {
     this.trigger('attribute_changed');
   }
 }
@@ -90,24 +90,24 @@ class AlbersModel extends GeoScaleModel {
     };
   }
 
-  initialize(attributes, options) {
+  initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
     super.initialize(attributes, options);
 
-    this.on_some_change(['rotate', 'center', 'parallels', 'scale_factor', 'precision'], this.create_projection, this);
-    this.create_projection();
+    this.on_some_change(['rotate', 'center', 'parallels', 'scale_factor', 'precision'], this.createProjection, this);
+    this.createProjection();
   }
 
-  create_projection() {
+  createProjection() {
     this.projection = d3.geoAlbers()
       .rotate(this.get('rotate'))
       .center(this.get('center'))
       .parallels(this.get('parallels'))
       .scale(this.get('scale_factor'))
       .precision(this.get('precision'));
-    this.attribute_changed();
+    this.attributeChanged();
   }
 
-  attribute_changed() {
+  attributeChanged() {
     this.trigger('attribute_changed');
   }
 }
@@ -123,21 +123,21 @@ class AlbersUSAModel extends GeoScaleModel {
     };
   }
 
-  initialize(attributes, options) {
+  initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
     super.initialize(attributes, options);
 
-    this.on_some_change(['scale_factor', 'translate'], this.create_projection, this);
-    this.create_projection();
+    this.on_some_change(['scale_factor', 'translate'], this.createProjection, this);
+    this.createProjection();
   }
 
-  create_projection() {
+  createProjection() {
     this.projection = d3.geoAlbersUsa()
       .scale(this.get('scale_factor'))
       .translate(this.get('translate'));
-    this.attribute_changed();
+    this.attributeChanged();
   }
 
-  attribute_changed() {
+  attributeChanged() {
     this.trigger('attribute_changed');
   }
 }
@@ -152,21 +152,21 @@ class EquiRectangularModel extends GeoScaleModel {
     };
   }
 
-  initialize(attributes, options) {
+  initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
     super.initialize(attributes, options);
 
-    this.on_some_change(['scale_factor', 'center'], this.create_projection, this);
-    this.create_projection();
+    this.on_some_change(['scale_factor', 'center'], this.createProjection, this);
+    this.createProjection();
   }
 
-  create_projection() {
+  createProjection() {
     this.projection = d3.geoEquirectangular()
       .center(this.get('center'))
       .scale(this.get('scale_factor'));
-    this.attribute_changed();
+    this.attributeChanged();
   }
 
-  attribute_changed() {
+  attributeChanged() {
     this.trigger('attribute_changed');
   }
 }
@@ -185,24 +185,24 @@ class OrthographicModel extends GeoScaleModel {
     };
   }
 
-  initialize(attributes, options) {
+  initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
     super.initialize(attributes, options);
 
-    this.on_some_change(['scale_factor', 'center', 'clip_angle', 'rotate', 'precision'], this.create_projection, this);
-    this.create_projection();
+    this.on_some_change(['scale_factor', 'center', 'clip_angle', 'rotate', 'precision'], this.createProjection, this);
+    this.createProjection();
   }
 
-  create_projection() {
+  createProjection() {
     this.projection = d3.geoOrthographic()
       .center(this.get('center'))
       .scale(this.get('scale_factor'))
       .clipAngle(this.get('clip_angle'))
       .rotate(this.get('rotate'))
       .precision(this.get('precision'));
-    this.attribute_changed();
+    this.attributeChanged();
   }
 
-  attribute_changed() {
+  attributeChanged() {
     this.trigger('attribute_changed');
   }
 }
@@ -220,22 +220,22 @@ class GnomonicModel extends GeoScaleModel {
     };
   }
 
-  initialize(attributes, options) {
+  initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
     super.initialize(attributes, options);
 
-    this.on_some_change(['scale_factor', 'precision', 'clip_angle'], this.create_projection, this);
-    this.create_projection();
+    this.on_some_change(['scale_factor', 'precision', 'clip_angle'], this.createProjection, this);
+    this.createProjection();
   }
 
-  create_projection() {
+  createProjection() {
     this.projection = d3.geoGnomonic()
       .clipAngle(this.get('clip_angle'))
       .scale(this.get('scale_factor'))
       .precision(this.get('precision'));
-    this.attribute_changed();
+    this.attributeChanged();
   }
 
-  attribute_changed() {
+  attributeChanged() {
     this.trigger('attribute_changed');
   }
 }
@@ -254,24 +254,24 @@ class StereographicModel extends GeoScaleModel {
     };
   }
 
-  initialize(attributes, options) {
+  initialize(attributes: Backbone.ObjectHash, options: IModelOptions) {
     super.initialize(attributes, options);
 
-    this.on_some_change(['scale_factor', 'center', 'clip_angle', 'rotate', 'precision'], this.create_projection, this);
-    this.create_projection();
+    this.on_some_change(['scale_factor', 'center', 'clip_angle', 'rotate', 'precision'], this.createProjection, this);
+    this.createProjection();
   }
 
-  create_projection() {
+  createProjection() {
     this.projection = d3.geoStereographic()
       .scale(this.get('scale_factor'))
       .rotate(this.get('rotate'))
       .clipAngle(this.get('clip_angle'))
       .center(this.get('center'))
       .precision(this.get('precision'));
-    this.attribute_changed();
+    this.attributeChanged();
   }
 
-  attribute_changed() {
+  attributeChanged() {
     this.trigger('attribute_changed');
   }
 }

@@ -15,7 +15,7 @@
 
 import * as _  from 'underscore';
 
-import * as d3Array from 'd3-array';
+const d3Array: any = require('d3-array');
 const d3 = {...d3Array};
 
 import {
@@ -24,7 +24,7 @@ import {
 
 
 export
-function convert_to_date(elem: string): Date {
+function convertToDate(elem: string): Date | null {
   if(elem === undefined || elem === null) {
     return null;
   }
@@ -44,95 +44,95 @@ class LinearScaleModel extends ScaleModel {
     };
   }
 
-  protected set_init_state() {
+  protected setInitState() {
     this.type = 'linear';
-    this.global_min = Number.NEGATIVE_INFINITY;
-    this.global_max = Number.POSITIVE_INFINITY;
+    this.globalMin = Number.NEGATIVE_INFINITY;
+    this.globalMax = Number.POSITIVE_INFINITY;
   }
 
-  protected set_listeners() {
-    this.on('change:reverse', this.reverse_changed, this);
-    this.reverse_changed(undefined, undefined, undefined);
-    this.on_some_change(['min', 'max'], this.min_max_changed, this);
-    this.min_max_changed();
-    this.on_some_change(['min_range', 'mid_range', 'stabilized'], this.update_domain, this);
+  protected setListeners() {
+    this.on('change:reverse', this.reverseChanged, this);
+    this.reverseChanged(undefined, undefined, undefined);
+    this.on_some_change(['min', 'max'], this.minMaxChanged, this);
+    this.minMaxChanged();
+    this.on_some_change(['min_range', 'mid_range', 'stabilized'], this.updateDomain, this);
   }
 
-  protected update_domain() {
-    const min = (!this.min_from_data) ?
+  protected updateDomain() {
+    const min = (!this.minFromData) ?
       this.min : d3.min(_.map(this.domains, (d: any[]) => {
-        return d.length > 0 ? d[0] : this.global_max;
+        return d.length > 0 ? d[0] : this.globalMax;
       }));
-    const max = (!this.max_from_data) ?
+    const max = (!this.maxFromData) ?
       this.max : d3.max(_.map(this.domains, (d: any[]) => {
-        return d.length > 1 ? d[1] : this.global_min;
+        return d.length > 1 ? d[1] : this.globalMin;
       }));
     const mid = (min + max) * 0.5;
-    const new_width = (max - min) * 0.5 / this.get('mid_range');
-    const prev_domain = this.domain;
-    const min_index = (this.reverse) ? 1 : 0;
-    const prev_min = prev_domain[min_index];
-    const prev_max = prev_domain[1 - min_index];
-    const prev_mid = (prev_max + prev_min) * 0.5;
-    const min_width = (prev_max - prev_min) * 0.5 * this.get('min_range');
+    const newWidth = (max - min) * 0.5 / this.get('mid_range');
+    const prevDomain = this.domain;
+    const minIndex = (this.reverse) ? 1 : 0;
+    const prevMin = prevDomain[minIndex];
+    const prevMax = prevDomain[1 - minIndex];
+    const prevMid = (prevMax + prevMin) * 0.5;
+    const minWidth = (prevMax - prevMin) * 0.5 * this.get('min_range');
 
     const stabilized = this.get('stabilized');
 
     // If the scale is stabilized, only update if the new min/max is without
     // a certain range, else update as soon as the new min/max is different.
-    const update_domain = stabilized ?
-      (!(min >= prev_min) || !(min <= prev_mid-min_width) ||
-       !(max <= prev_max) || !(max >= prev_mid+min_width)) :
-      (min !== prev_min || max !== prev_max);
+    const updateDomain = stabilized ?
+      (!(min >= prevMin) || !(min <= prevMid - minWidth) ||
+       !(max <= prevMax) || !(max >= prevMid + minWidth)) :
+      (min !== prevMin || max !== prevMax);
 
-    if (update_domain) {
-      const new_min = stabilized ? mid - new_width : min;
-      const new_max = stabilized ? mid + new_width : max;
-      this.domain = (this.reverse) ? [new_max, new_min] : [new_min, new_max];
+    if (updateDomain) {
+      const newMin = stabilized ? mid - newWidth : min;
+      const newMax = stabilized ? mid + newWidth : max;
+      this.domain = (this.reverse) ? [newMax, newMin] : [newMin, newMax];
       this.trigger('domain_changed', this.domain);
     }
   }
 
-  protected min_max_changed() {
+  protected minMaxChanged() {
     this.min = this.get('min');
     this.max = this.get('max');
-    this.min_from_data = (this.min === null);
-    this.max_from_data = (this.max === null);
-    this.update_domain();
+    this.minFromData = (this.min === null);
+    this.maxFromData = (this.max === null);
+    this.updateDomain();
   }
 
-  private reverse_changed(model, value, options) {
-    const prev_reverse = (model === undefined) ? false : model.previous('reverse');
+  private reverseChanged(model: any, value: any, options: any) {
+    const prevReverse = (model === undefined) ? false : model.previous('reverse');
     this.reverse = this.get('reverse');
 
     // the domain should be reversed only if the previous value of reverse
     // is different from the current value. During init, domain should be
     // reversed only if reverse is set to True.
-    const reverse_domain = (prev_reverse + this.reverse) % 2;
-    if(this.domain.length > 0 && reverse_domain === 1) {
+    const reverseDomain = (prevReverse + this.reverse) % 2;
+    if(this.domain.length > 0 && reverseDomain === 1) {
       this.domain.reverse();
       this.trigger('domain_changed', this.domain);
     }
   }
 
-  compute_and_set_domain(data_array, id) {
+  computeAndSetDomain(array: any[], id: string) {
     // Takes an array and calculates the domain for the particular
     // view. If you have the domain already calculated on your side,
-    // call set_domain function.
-    if(!data_array || data_array.length === 0) {
-     this.set_domain([], id);
+    // call setDomain function.
+    if(!array || array.length === 0) {
+     this.setDomain([], id);
      return;
     }
-    const data = data_array[0] instanceof Array ? data_array : [data_array];
+    const data = array[0] instanceof Array ? array : [array];
     const min = d3.min(data.map((d) => { return d3.min(d); }));
     const max = d3.max(data.map((d) => { return d3.max(d); }));
-    this.set_domain([min, max], id);
+    this.setDomain([min, max], id);
   }
 
-  protected min: number | Date;
-  protected max: number | Date;
-  protected min_from_data: boolean;
-  protected max_from_data: boolean;
-  protected global_min: number | Date;
-  protected global_max: number | Date;
+  protected min: number | Date | null;
+  protected max: number | Date | null;
+  protected minFromData: boolean;
+  protected maxFromData: boolean;
+  protected globalMin: number | Date | null;
+  protected globalMax: number | Date | null;
 }

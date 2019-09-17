@@ -16,7 +16,7 @@
 import * as _ from 'underscore';
 
 import {
-  LinearScaleModel, convert_to_date
+  LinearScaleModel, convertToDate
 } from './LinearScaleModel';
 
 export
@@ -28,18 +28,18 @@ class DateScaleModel extends LinearScaleModel{
     };
   }
 
-  protected set_init_state() {
+  protected setInitState() {
     this.type = 'date';
-    this.global_min = (new Date()).setTime(0);
-    this.global_max = new Date();
+    this.globalMin = (new Date()).setTime(0);
+    this.globalMax = new Date();
   }
 
-  min_max_changed() {
-    this.min = convert_to_date(this.get('min'));
-    this.max = convert_to_date(this.get('max'));
-    this.min_from_data = (this.min === null);
-    this.max_from_data = (this.max === null);
+  minMaxChanged() {
+    this.min = convertToDate(this.get('min'));
+    this.max = convertToDate(this.get('max'));
+    this.minFromData = (this.min === null);
+    this.maxFromData = (this.max === null);
 
-    this.update_domain();
+    this.updateDomain();
   }
 }

@@ -282,7 +282,7 @@ class ColorBar extends Axis {
 
     set_scales_range() {
         //Setting the range of the color scale
-        this.axis_scale.set_range();
+        this.axis_scale.setRange();
         this.set_axisline_scale_range();
     }
 

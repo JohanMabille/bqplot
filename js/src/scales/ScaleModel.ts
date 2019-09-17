@@ -51,26 +51,26 @@ abstract class ScaleModel extends WidgetModel {
     this.domains = {};
     this.domain = [];
 
-    this.set_init_state();
-    this.set_listeners();
+    this.setInitState();
+    this.setListeners();
   }
 
-  set_domain(domain: any[], id: string) {
+  setDomain(domain: any[], id: string) {
     // Call function only if you have computed the domain yourself. If
     // you want the scale to compute the domain based on the data for
-    // your scale view, then call compute_and_set_domain
+    // your scale view, then call computeAndSetDomain
     this.domains[id] = domain;
-    this.update_domain();
+    this.updateDomain();
   }
 
-  del_domain(domain: any[], id: string) {
+  delDomain(domain: any[], id: string) {
     if(this.domains[id] !== undefined) {
       delete this.domains[id];
-      this.update_domain();
+      this.updateDomain();
     }
   }
 
-  get_domain_slice_in_order() {
+  getDomainSliceInOrder() {
     if(this.reverse) {
       return this.domain.slice().reverse();
     } else {
@@ -78,14 +78,14 @@ abstract class ScaleModel extends WidgetModel {
     }
   }
 
-  abstract compute_and_set_domain(data_array, id);
+  abstract computeAndSetDomain(array: any[], id: string): void;
 
-  protected abstract set_init_state();
-  protected abstract set_listeners();
-  protected abstract update_domain();
+  protected abstract setInitState(): void;
+  protected abstract setListeners(): void;
+  protected abstract updateDomain(): void;
 
   type: string;
-  domain: number[];
+  domain: any[];
 
   protected domains: any;
   protected reverse: boolean;

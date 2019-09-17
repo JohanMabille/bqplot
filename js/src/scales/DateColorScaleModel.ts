@@ -18,7 +18,7 @@ import {
 } from './ColorScaleModel';
 
 import {
-  convert_to_date
+  convertToDate
 } from './LinearScaleModel';
 
 export
@@ -30,20 +30,20 @@ class DateColorScaleModel extends ColorScaleModel {
     };
   }
 
-  protected set_init_state() {
+  protected setInitState() {
     this.type = 'date_color_linear';
-    this.color_range = [];
+    this.colorRange = [];
     this.mid = null;
-    this.global_min = (new Date()).setTime(0);
-    this.global_max = new Date();
+    this.globalMin = (new Date()).setTime(0);
+    this.globalMax = new Date();
   }
 
-  protected min_max_changed() {
-    this.min = convert_to_date(this.get('min'));
-    this.max = convert_to_date(this.get('max'));
-    this.min_from_data = (this.min === null);
-    this.max_from_data = (this.max === null);
-    this.update_domain();
+  protected minMaxChanged() {
+    this.min = convertToDate(this.get('min'));
+    this.max = convertToDate(this.get('max'));
+    this.minFromData = (this.min === null);
+    this.maxFromData = (this.max === null);
+    this.updateDomain();
   }
 
   protected toDomainType(value: number) : Date {

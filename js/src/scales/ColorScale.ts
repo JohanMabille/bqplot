@@ -21,40 +21,40 @@ import {
   ColorScaleModel
 } from './ColorScaleModel';
 
-import * as d3Scale from 'd3-scale';
+const d3Scale: any = require('d3-scale');
 const d3 = {...d3Scale};
 
 export
 class ColorScale extends Scale {
   render(){
     super.render();
-    this.update_extrapolation();
+    this.updateExtrapolation();
     if(this.model.domain.length > 0) {
         this.scale.domain(this.model.domain);
     }
-    this.set_range();
+    this.setRange();
   }
 
-  protected create_d3_scale(){
+  protected createD3Scale(){
     this.scale = d3.scaleLinear();
   }
 
-  protected create_event_listeners() {
-    super.create_event_listeners();
+  protected createEventListeners() {
+    super.createEventListeners();
 
-    this.listenTo(this.model, 'colors_changed', this.set_range);
+    this.listenTo(this.model, 'colors_changed', this.setRange);
     this.model.on('change:extrapolation', () => {
-      this.update_extrapolation();
+      this.updateExtrapolation();
       this.trigger('color_scale_range_changed');
     });
   }
 
-  update_extrapolation() {
+  updateExtrapolation() {
     this.scale.clamp((this.model.get('extrapolation') === 'constant'));
   }
 
-  set_range() {
-    this.scale.range(this.model.color_range);
+  setRange() {
+    this.scale.range(this.model.colorRange);
     this.trigger('color_scale_range_changed');
   }
 

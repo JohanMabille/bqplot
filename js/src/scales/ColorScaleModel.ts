@@ -15,8 +15,8 @@
 
 import * as _ from 'underscore';
 
-import * as d3Array from 'd3-array';
-import * as d3Scale from 'd3-scale';
+const d3Array: any = require('d3-array');
+const d3Scale: any = require('d3-scale');
 const d3 = {...d3Array, ...d3Scale};
 
 import {
@@ -25,74 +25,76 @@ import {
 
 import * as colorutils from './ColorUtils';
 
+export type DomainType = number | Date;
+
 export
 class ColorScaleModel extends LinearScaleModel {
-  protected set_init_state() {
+  protected setInitState() {
     this.type = 'color_linear';
-    this.color_range = [];
+    this.colorRange = [];
     this.mid = null;
   }
 
-  protected set_listeners() {
-    super.set_listeners();
-    this.on_some_change(['colors', 'scheme'], this.colors_changed, this);
-    this.on('change:mid', this.update_domain, this);
-    this.colors_changed();
+  protected setListeners() {
+    super.setListeners();
+    this.on_some_change(['colors', 'scheme'], this.colorsChanged, this);
+    this.on('change:mid', this.updateDomain, this);
+    this.colorsChanged();
   }
 
-  protected update_domain() {
+  protected updateDomain() {
     // Compute domain min and max
-    const min = (!this.min_from_data) ?
+    const min = (!this.minFromData) ?
       this.min : d3.min(_.map(this.domains, (d: any[]) => {
-        return d.length > 0 ? d[0] : this.global_max;
+        return d.length > 0 ? d[0] : this.globalMax;
       }));
-    const max = (!this.max_from_data) ?
+    const max = (!this.maxFromData) ?
       this.max : d3.max(_.map(this.domains, (d: any []) => {
-        return d.length > 0 ? d[d.length-1] : this.global_min;
+        return d.length > 0 ? d[d.length-1] : this.globalMin;
       }));
-    const prev_mid = this.mid;
+    const prevMid = this.mid;
     this.mid = this.get('mid');
 
     // If the min/mid/max has changed, or the number of colors has changed,
     // update the domain
-    const prev_domain = this.domain;
-    const prev_length = prev_domain.length;
-    const n_colors = this.color_range.length;
+    const prevDomain = this.domain;
+    const prevLength = prevDomain.length;
+    const nColors = this.colorRange.length;
 
-    if(min != prev_domain[0] || max != prev_domain[prev_length-1] ||
-       n_colors != prev_length || this.mid != prev_mid) {
+    if(min != prevDomain[0] || max != prevDomain[prevLength-1] ||
+       nColors != prevLength || this.mid != prevMid) {
 
-      this.domain = this.create_domain(min, this.mid, max, n_colors);
+      this.domain = this.createDomain(min, this.mid, max, nColors);
       this.trigger('domain_changed', this.domain);
     }
   }
 
-  private create_domain(min, mid, max, n_colors) {
+  private createDomain(min: DomainType, mid: DomainType | null, max: DomainType, nColors: number) {
     // Domain ranges from min to max, with the same number of
     // elements as the color range
     const scale = d3.scaleLinear();
 
     if (mid === undefined || mid === null){
-      scale.domain([0, n_colors - 1]).range([min, max]);
+      scale.domain([0, nColors - 1]).range([min, max]);
     } else {
-      const mid_index = n_colors / 2;
-      scale.domain([0, mid_index, n_colors - 1]).range([min, mid, max]);
+      const mid_index = nColors / 2;
+      scale.domain([0, mid_index, nColors - 1]).range([min, mid, max]);
     }
 
     const domain = [];
-    for (let i = 0; i < n_colors; i++) {
-      const j = this.reverse ? n_colors-1-i : i;
+    for (let i = 0; i < nColors; i++) {
+      const j = this.reverse ? nColors-1-i : i;
       domain.push(this.toDomainType(scale(j)));
     }
     return domain;
   }
 
-  private colors_changed() {
+  private colorsChanged() {
     const colors = this.get('colors');
-    this.color_range = colors.length > 0 ? colors :
-      colorutils.get_linear_scale_range(this.get('scheme'));
+    this.colorRange = colors.length > 0 ? colors :
+      colorutils.getLinearScaleRange(this.get('scheme'));
     // If the number of colors has changed, the domain must be updated
-    this.update_domain();
+    this.updateDomain();
     // Update the range of the views. For a color scale the range doesn't depend
     // on the view, so ideally we could get rid of this
     this.trigger('colors_changed');
@@ -103,5 +105,5 @@ class ColorScaleModel extends LinearScaleModel {
   }
 
   color_range: Array<number>;
-  mid: number;
+  mid: DomainType | null;
 }

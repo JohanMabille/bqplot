@@ -24,29 +24,29 @@ export
 abstract class Scale extends widgets.WidgetView {
   render() {
     this.offset = 0;
-    this.create_d3_scale();
-    this.create_event_listeners();
+    this.createD3Scale();
+    this.createEventListeners();
   }
 
-  protected create_event_listeners() {
-    this.listenTo(this.model, 'domain_changed', this.model_domain_changed);
-    this.listenTo(this.model, 'highlight_axis', this.highlight_axis);
-    this.listenTo(this.model, 'unhighlight_axis', this.unhighlight_axis);
+  protected createEventListeners() {
+    this.listenTo(this.model, 'domain_changed', this.modelDomainChanged);
+    this.listenTo(this.model, 'highlight_axis', this.highlightAxis);
+    this.listenTo(this.model, 'unhighlight_axis', this.unhighlightAxis);
   }
 
-  set_range(range: any[], padding=undefined) {
+  setRange(range: any[], padding=undefined) {
     this.scale.range(range);
   }
 
-  compute_and_set_domain(array: any[], id: string) {
-    this.model.compute_and_set_domain(array, id);
+  computeAndSetDomain(array: any[], id: string) {
+    this.model.computeAndSetDomain(array, id);
   }
 
-  set_domain(array: any[], id: string) {
-    this.model.set_domain(array, id);
+  setDomain(array: any[], id: string) {
+    this.model.setDomain(array, id);
   }
 
-  expand_domain(old_range: any[], new_range: any[]) {
+  expandDomain(oldRange: any[], newRange: any[]) {
     // Base class function. No implementation.
     // Implementation is particular to the child class
     // if you have a current range and then a new range and want to
@@ -54,20 +54,20 @@ abstract class Scale extends widgets.WidgetView {
     // consistent with the previous one, this is the function you use.
   }
 
-  protected model_domain_changed() {
+  protected modelDomainChanged() {
     this.scale.domain(this.model.domain);
     this.trigger('domain_changed');
   }
 
-  protected highlight_axis() {
+  protected highlightAxis() {
     this.trigger('highlight_axis');
   }
 
-  protected unhighlight_axis() {
+  protected unhighlightAxis() {
     this.trigger('unhighlight_axis');
   }
 
-  protected abstract create_d3_scale();
+  protected abstract createD3Scale(): any;
 
   offset: number;
   scale: any;

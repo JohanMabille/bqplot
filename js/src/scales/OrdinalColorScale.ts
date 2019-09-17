@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import * as d3Scale from 'd3-scale';
+const d3Scale: any = require('d3-scale');
 const d3 = {...d3Scale};
 
 import * as colurutils from './ColorUtils';
@@ -28,29 +28,29 @@ class OrdinalColorScale extends Scale {
   render(){
     super.render();
     this.scale.domain(this.model.domain);
-    this.model.on_some_change(['colors', 'scheme'], this.colors_changed, this);
-    this.set_range();
+    this.model.on_some_change(['colors', 'scheme'], this.colorsChanged, this);
+    this.setRange();
   }
 
-  protected create_d3_scale() {
+  protected createD3Scale() {
     this.scale = d3.scaleOrdinal();
   }
 
-  set_range() {
+  setRange() {
     if (this.model.get('colors').length > 0) {
-      this.scale.range(colurutils.cycle_colors(this.model.get('colors'), this.scale.domain().length));
+      this.scale.range(colurutils.cycleColors(this.model.get('colors'), this.scale.domain().length));
     } else {
-      this.scale.range(colurutils.get_ordinal_scale_range(this.model.get('scheme'), this.scale.domain().length));
+      this.scale.range(colurutils.getOrdinalScaleRange(this.model.get('scheme'), this.scale.domain().length));
     }
     this.trigger('color_scale_range_changed');
   }
 
-  protected model_domain_changed() {
-    super.model_domain_changed();
-    this.set_range();
+  protected modelDomainChanged() {
+    super.modelDomainChanged();
+    this.setRange();
   }
 
-  colors_changed() {
-    this.set_range();
+  colorsChanged() {
+    this.setRange();
   }
 }

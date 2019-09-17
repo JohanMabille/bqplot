@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import * as d3Scale from 'd3-scale';
+const d3Scale: any = require('d3-scale');
 const d3 = { ...d3Scale };
 
 import {
@@ -29,11 +29,11 @@ class LinearScale extends Scale {
     }
   }
 
-  protected create_d3_scale() {
+  protected createD3Scale() {
     this.scale = d3.scaleLinear();
   }
 
-  expand_domain(old_range, new_range) {
+  expandDomain(oldRange: any[], newRange: any[]) {
     // If you have a current range and then a new range and want to
     // expand the domain to expand to the new range but keep it
     // consistent with the previous one, this is the function you use.
@@ -41,27 +41,26 @@ class LinearScale extends Scale {
     // The following code is required to make a copy of the actual
     // state of the scale. Referring to the model domain and then
     // setting the range to be the old range in case it is not.
-    const unpadded_scale = this.scale.copy();
+    const unpaddedScale = this.scale.copy();
 
     // To handle the case for a clamped scale for which we have to
     // expand the domain, the copy should be unclamped.
-    unpadded_scale.clamp(false);
-    unpadded_scale.domain(this.model.domain);
-    unpadded_scale.range(old_range);
-    this.scale.domain(new_range.map((limit) => {
-      return unpadded_scale.invert(limit);
+    unpaddedScale.clamp(false);
+    unpaddedScale.domain(this.model.domain);
+    unpaddedScale.range(oldRange);
+    this.scale.domain(newRange.map((limit) => {
+      return unpaddedScale.invert(limit);
     }));
   }
 
-  invert(pixel): number {
+  invert(pixel: any): number {
     return this.scale.invert(pixel);
   }
 
-  invert_range(pixels) {
+  invertRange(pixels: any[]) {
     //Pixels is a non-decreasing array of pixel values
     return pixels.map((pix) => {
       return this.invert(pix);
     });
   }
 }
-

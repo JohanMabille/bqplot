@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import * as d3Geo from 'd3-geo';
+const d3Geo: any = require('d3-geo');
 const d3 = {...d3Geo};
 
 import {
@@ -29,16 +29,16 @@ export
 class GeoScale extends Scale {
   render() {
     super.render();
-    this.listenTo(this.model, 'attribute_changed', this.reset_scale);
+    this.listenTo(this.model, 'attribute_changed', this.resetScale);
   }
 
-  protected create_d3_scale() {
+  protected createD3Scale() {
     this.path = d3.geoPath().projection(this.model.projection);
     this.scale = this.model.projection;
   }
 
-  reset_scale() {
-    this.create_d3_scale();
+  resetScale() {
+    this.createD3Scale();
     this.trigger('domain_changed', null);
   }
 

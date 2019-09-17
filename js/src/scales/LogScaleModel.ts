@@ -27,9 +27,9 @@ class LogScaleModel extends LinearScaleModel {
     };
   }
 
-  protected set_init_state() {
+  protected setInitState() {
     this.type = 'log';
-    this.global_min = Number.MIN_VALUE;
-    this.global_max = Number.POSITIVE_INFINITY;
+    this.globalMin = Number.MIN_VALUE;
+    this.globalMax = Number.POSITIVE_INFINITY;
   }
 }
