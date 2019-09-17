@@ -161,9 +161,9 @@ export class BarsModel extends markmodel.MarkModel {
         });
         if(color_scale && color.length > 0) {
                 if(!this.get("preserve_domain").color) {
-                    color_scale.compute_and_set_domain(color, this.model_id + "_color");
+                    color_scale.computeAndSetDomain(color, this.model_id + "_color");
                 } else {
-                    color_scale.del_domain([], this.model_id + "_color");
+                    color_scale.delDomain([], this.model_id + "_color");
                 }
         }
     }
@@ -177,17 +177,17 @@ export class BarsModel extends markmodel.MarkModel {
         const range_scale = scales.y;
 
         if(!this.get("preserve_domain").x) {
-            dom_scale.compute_and_set_domain(this.mark_data.map(function(elem) {
+            dom_scale.computeAndSetDomain(this.mark_data.map(function(elem) {
                 return elem.key;
             }), this.model_id + "_x");
         }
         else {
-            dom_scale.del_domain([], this.model_id + "_x");
+            dom_scale.delDomain([], this.model_id + "_x");
         }
 
         if(!this.get("preserve_domain").y) {
             if(this.get("type") === "stacked") {
-                range_scale.compute_and_set_domain([d3.min(this.mark_data, function(c: any) { return c.neg_max; }),
+                range_scale.computeAndSetDomain([d3.min(this.mark_data, function(c: any) { return c.neg_max; }),
                                                 d3.max(this.mark_data, function(c: any) { return c.pos_max; }), this.base_value],
                                                 this.model_id + "_y");
             } else {
@@ -202,10 +202,10 @@ export class BarsModel extends markmodel.MarkModel {
                         return val.y_ref;
                     });
                 });
-                range_scale.compute_and_set_domain([min, max, this.base_value], this.model_id + "_y");
+                range_scale.computeAndSetDomain([min, max, this.base_value], this.model_id + "_y");
             }
         } else {
-            range_scale.del_domain([], this.model_id + "_y");
+            range_scale.delDomain([], this.model_id + "_y");
         }
     }
 

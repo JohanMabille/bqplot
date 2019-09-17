@@ -356,17 +356,19 @@ export class Figure extends widgets.DOMWidgetView {
         // See the scale_x and scale_y attributes of the python Figure
         const that = this;
         const x_scale_promise = this.create_child_view(this.model.get("scale_x"))
-            .then(function(view) {
+        // @ts-ignore
+            .then(function(view: Scale) {
                 that.scale_x = view;
                 that.scale_x.scale.clamp(true);
-                that.scale_x.set_range([0, that.plotarea_width]);
+                that.scale_x.setRange([0, that.plotarea_width]);
             });
 
         const y_scale_promise = this.create_child_view(this.model.get("scale_y"))
-            .then(function(view) {
+        // @ts-ignore
+            .then(function(view: Scale) {
                 that.scale_y = view;
                 that.scale_y.scale.clamp(true);
-                that.scale_y.set_range([that.plotarea_height, 0]);
+                that.scale_y.setRange([that.plotarea_height, 0]);
             });
         return Promise.all([x_scale_promise, y_scale_promise]);
     }
@@ -588,12 +590,12 @@ export class Figure extends widgets.DOMWidgetView {
             that.update_plotarea_dimensions();
 
             if (that.scale_x !== undefined && that.scale_x !== null) {
-                that.scale_x.set_range([0, that.plotarea_width]);
+                that.scale_x.setRange([0, that.plotarea_width]);
             }
 
 
             if (that.scale_y !== undefined && that.scale_y !== null) {
-                that.scale_y.set_range([that.plotarea_height, 0]);
+                that.scale_y.setRange([that.plotarea_height, 0]);
             }
 
             // transform figure

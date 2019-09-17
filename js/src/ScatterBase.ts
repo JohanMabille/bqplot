@@ -18,6 +18,15 @@ import 'd3-selection-multi';
 // const d3 =Object.assign({}, require("d3-array"), require("d3-drag"), require("d3-selection"), require("d3-selection-multi"));
 const d3GetEvent = function(){return require("d3-selection").event}.bind(this);
 import { Mark } from './Mark';
+
+import {
+    LinearScale
+} from './scales/LinearScale';
+
+import {
+    OrdinalScale
+} from './scales/OrdinalScale';
+
 import * as _ from 'underscore';
 
 export abstract class ScatterBase extends Mark {
@@ -86,22 +95,22 @@ export abstract class ScatterBase extends Mark {
             skew_scale = this.scales.skew,
             rotation_scale = this.scales.rotation;
         if(x_scale) {
-            x_scale.set_range(this.parent.padded_range("x", x_scale.model));
+            x_scale.setRange(this.parent.padded_range("x", x_scale.model));
         }
         if(y_scale) {
-            y_scale.set_range(this.parent.padded_range("y", y_scale.model));
+            y_scale.setRange(this.parent.padded_range("y", y_scale.model));
         }
         if(size_scale) {
-            size_scale.set_range([0, this.model.get("default_size")]);
+            size_scale.setRange([0, this.model.get("default_size")]);
         }
         if(opacity_scale) {
-            opacity_scale.set_range([0.2, 1]);
+            opacity_scale.setRange([0.2, 1]);
         }
         if(skew_scale) {
-            skew_scale.set_range([0, 1]);
+            skew_scale.setRange([0, 1]);
         }
         if(rotation_scale) {
-            rotation_scale.set_range([0, 180]);
+            rotation_scale.setRange([0, 180]);
         }
     }
 
@@ -619,8 +628,8 @@ export abstract class ScatterBase extends Mark {
             event: "drag",
             origin: {x: d.x, y: d.y},
             point: {
-                x: x_scale.invert(d[0]),
-                y: y_scale.invert(d[1])
+                x: (x_scale as LinearScale | OrdinalScale).invert(d[0]),
+                y: (y_scale as LinearScale | OrdinalScale).invert(d[1])
             },
             index: i
         });
@@ -638,8 +647,8 @@ export abstract class ScatterBase extends Mark {
         this.send({
             event: "drag_end",
             point: {
-                x: x_scale.invert(d[0]),
-                y: y_scale.invert(d[1])
+                x: (x_scale as LinearScale | OrdinalScale).invert(d[0]),
+                y: (y_scale as LinearScale | OrdinalScale).invert(d[1])
             },
             index: i
         });

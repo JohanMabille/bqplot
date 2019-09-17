@@ -14,6 +14,9 @@
  */
 
 import * as widgets from '@jupyter-widgets/base';
+import {
+    Dict
+} from '@jupyter-widgets/base';
 import * as _ from 'underscore';
 
 import {
@@ -30,6 +33,13 @@ import 'd3-selection-multi';
 import {Figure} from './Figure';
 import * as popperreference from './PopperReference';
 import popper from 'popper.js';
+import {
+    MarketMapModel
+} from './MarketMapModel';
+
+import {
+    Scale
+} from './scales/Scale';
 
 export class MarketMap extends Figure {
 
@@ -260,7 +270,7 @@ export class MarketMap extends Figure {
         const color_scale_model = this.model.getScales().color;
         const color_data = this.model.get("color");
         if(color_scale_model && color_data.length > 0) {
-            color_scale_model.compute_and_set_domain(color_data, this.model.model_id);
+            color_scale_model.computeAndSetDomain(color_data, this.model.model_id);
         }
     }
 
@@ -341,7 +351,7 @@ export class MarketMap extends Figure {
         _.each(scale_models, function(model : widgets.WidgetModel, key) {
             scale_promises[key] = that.create_child_view(model);
         });
-        return widgets.resolvePromisesDict(scale_promises).then(function(d) {
+        return widgets.resolvePromisesDict<Scale>(scale_promises).then(function(d: Dict<Scale>) {
             that.scales = d;
             that.set_scales();
         });
@@ -351,7 +361,6 @@ export class MarketMap extends Figure {
         const that = this;
         const color_scale = this.scales.color;
         if(color_scale) {
-            color_scale.set_range();
             color_scale.on("color_scale_range_changed", that.update_map_colors, that);
             this.update_domains();
             this.listenTo(color_scale, "domain_changed", function() {
@@ -1036,7 +1045,7 @@ export class MarketMap extends Figure {
         return[{'x': curr_x * this.column_width, 'y': curr_y * this.row_height}];
     }
 
-    scales: any;
+    scales: Dict<Scale>;
     num_rows: number;
     num_cols: number;
     row_groups: any;
@@ -1069,4 +1078,5 @@ export class MarketMap extends Figure {
     end_points: any[];
     tooltip_view: any;
     row_limits: any[];
+    model: MarketMapModel;
 }

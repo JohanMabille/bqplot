@@ -121,11 +121,11 @@ export class ScatterBaseModel extends MarkModel {
             if(scales.hasOwnProperty(key)) {
                 const scale = scales[key];
                 if(!this.get("preserve_domain")[key]) {
-                    scale.compute_and_set_domain(this.mark_data.map(function(elem) {
+                    scale.computeAndSetDomain(this.mark_data.map(function(elem) {
                         return elem[key];
                     }), this.model_id + key);
                 } else {
-                    scale.del_domain([], this.model_id + key);
+                    scale.delDomain([], this.model_id + key);
                 }
             }
        }

@@ -155,27 +155,27 @@ export class LinesModel extends MarkModel {
         const color_scale = scales.color;
 
         if(!this.get("preserve_domain").x) {
-            x_scale.compute_and_set_domain(this.mark_data.map(function(elem) {
+            x_scale.computeAndSetDomain(this.mark_data.map(function(elem) {
                 return elem.values.map(function(d) { return d.x; });
             }), this.model_id + "_x");
         } else {
-            x_scale.del_domain([], this.model_id + "_x");
+            x_scale.delDomain([], this.model_id + "_x");
         }
 
         if(!this.get("preserve_domain").y) {
-            y_scale.compute_and_set_domain(this.mark_data.map(function(elem) {
+            y_scale.computeAndSetDomain(this.mark_data.map(function(elem) {
                 return elem.values.map(function(d) { return d.y; });
             }), this.model_id + "_y");
         } else {
-            y_scale.del_domain([], this.model_id + "_y");
+            y_scale.delDomain([], this.model_id + "_y");
         }
         if(color_scale !== null && color_scale !== undefined) {
             if(!this.get("preserve_domain").color) {
-                color_scale.compute_and_set_domain(this.mark_data.map(function(elem) {
+                color_scale.computeAndSetDomain(this.mark_data.map(function(elem) {
                     return elem.color;
                 }), this.model_id + "_color");
             } else {
-                color_scale.del_domain([], this.model_id + "_color");
+                color_scale.delDomain([], this.model_id + "_color");
             }
         }
     }
@@ -278,37 +278,37 @@ export class FlexLineModel extends LinesModel {
         const width_scale = scales.width;
 
         if(!this.get("preserve_domain").x) {
-            x_scale.compute_and_set_domain(this.x_data[0].slice(0, this.data_len), this.model_id + "_x");
+            x_scale.computeAndSetDomain(this.x_data[0].slice(0, this.data_len), this.model_id + "_x");
         } else {
-            x_scale.del_domain([], this.model_id + "_x");
+            x_scale.delDomain([], this.model_id + "_x");
         }
 
         if(!this.get("preserve_domain").y) {
-            y_scale.compute_and_set_domain(this.y_data[0].slice(0, this.data_len), this.model_id + "_y");
+            y_scale.computeAndSetDomain(this.y_data[0].slice(0, this.data_len), this.model_id + "_y");
         } else {
-            y_scale.del_domain([], this.model_id + "_y");
+            y_scale.delDomain([], this.model_id + "_y");
         }
 
         if(color_scale !== null && color_scale !== undefined) {
             if(!this.get("preserve_domain").color) {
-                color_scale.compute_and_set_domain(this.mark_data.map(function(elem) {
+                color_scale.computeAndSetDomain(this.mark_data.map(function(elem) {
                     return elem.values.map(function(d) {
                         return d.color;
                     });
                 }), this.model_id + "_color");
             } else {
-                color_scale.del_domain([], this.model_id + "_color");
+                color_scale.delDomain([], this.model_id + "_color");
             }
         }
         if(width_scale !== null && width_scale !== undefined) {
             if(!this.get("preserve_domain").width) {
-                width_scale.compute_and_set_domain(this.mark_data.map(function(elem) {
+                width_scale.computeAndSetDomain(this.mark_data.map(function(elem) {
                     return elem.values.map(function(d) {
                         return d.size;
                     });
                 }), this.model_id + "_width");
             } else {
-                width_scale.del_domain([], this.model_id + "_width");
+                width_scale.delDomain([], this.model_id + "_width");
             }
         }
     }

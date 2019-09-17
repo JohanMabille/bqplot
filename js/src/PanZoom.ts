@@ -20,6 +20,10 @@ const d3GetEvent = function(){return require("d3-selection").event}.bind(this);
 import * as interaction from './Interaction';
 import * as _ from 'underscore';
 
+import {
+    PanZoomModel
+} from './PanZoomModel';
+
 // TODO avoid code duplication for 'x' and 'y'
 
 export class PanZoom extends interaction.Interaction {
@@ -86,10 +90,10 @@ export class PanZoom extends interaction.Interaction {
         // drift when Paning.
         this.domains_in_order = {
             "x": (scales.x || []).map(function(s) {
-                return s.get_domain_slice_in_order();
+                return s.getDomainSliceInOrder();
             }),
             "y": (scales.y || []).map(function(s) {
-                return s.get_domain_slice_in_order();
+                return s.getDomainSliceInOrder();
             }),
         };
     }
@@ -177,7 +181,7 @@ export class PanZoom extends interaction.Interaction {
                     });
                     const factor = Math.exp(-delta * 0.001);
                     for (let i=0; i<xscale_views.length; i++) {
-                        domain = scales.x[i].get_domain_slice_in_order();
+                        domain = scales.x[i].getDomainSliceInOrder();
                         min = domain[0];
                         max = domain[1];
                         that.set_scale_attribute(scales.x[i], "min",
@@ -193,7 +197,7 @@ export class PanZoom extends interaction.Interaction {
                         return view.scale.invert(mouse_pos[1]);
                     });
                     for (let i=0; i<yscale_views.length; i++) {
-                        domain = scales.y[i].get_domain_slice_in_order();
+                        domain = scales.y[i].getDomainSliceInOrder();
                         min = domain[0];
                         max = domain[1];
                         that.set_scale_attribute(scales.y[i], "min",
@@ -225,5 +229,6 @@ export class PanZoom extends interaction.Interaction {
     scale_promises: any;
     previous_pos: any;
     domains_in_order: any;
+    model: PanZoomModel;
 }
 

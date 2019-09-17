@@ -24,6 +24,10 @@ import * as _ from 'underscore';
 import { Mark } from './Mark'
 import { BarsModel } from './BarsModel'
 
+import {
+    Scale
+} from './scales/Scale';
+
 export class Bars extends Mark {
 
     render() {
@@ -65,11 +69,11 @@ export class Bars extends Mark {
         const dom = (orient === "vertical") ? "x" : "y";
         const rang = (orient === "vertical") ? "y" : "x";
         if(dom_scale.model.type !== "ordinal") {
-            dom_scale.set_range(this.parent.padded_range(dom, dom_scale.model));
+            dom_scale.setRange(this.parent.padded_range(dom, dom_scale.model));
         } else {
-            dom_scale.set_range(this.parent.padded_range(dom, dom_scale.model), this.model.get("padding"));
+            dom_scale.setRange(this.parent.padded_range(dom, dom_scale.model), this.model.get("padding"));
         }
-        range_scale.set_range(this.parent.padded_range(rang, range_scale.model));
+        range_scale.setRange(this.parent.padded_range(rang, range_scale.model));
         // x_offset is set later by the adjust_offset method
         // This differs because it is not constant for a scale.
         // Changes based on the data.
@@ -695,11 +699,11 @@ export class Bars extends Mark {
     }
 
     dom_offset: any;
-    dom_scale: any;
+    dom_scale: Scale;
     legend_el: any;
     pixel_coords: any;
     range_offset: any;
-    range_scale: any;
+    range_scale: Scale;
     x_pixels: any;
     x: any;
     x1: any;

@@ -15,6 +15,13 @@
 
 import * as d3 from 'd3';
 // var d3 =Object.assign({}, require("d3"));
+import {
+    Dict
+} from '@jupyter-widgets/base';
+
+import {
+    LinearScale
+} from './scales/LinearScale'
 import { Mark }from './Mark';
 import * as _ from 'underscore';
 
@@ -84,10 +91,10 @@ export class Image extends Mark {
         const x_scale = this.scales.x,
             y_scale = this.scales.y;
         if(x_scale) {
-            x_scale.set_range(this.parent.padded_range("x", x_scale.model));
+            x_scale.setRange(this.parent.padded_range("x", x_scale.model));
         }
         if(y_scale) {
-            y_scale.set_range(this.parent.padded_range("y", y_scale.model));
+            y_scale.setRange(this.parent.padded_range("y", y_scale.model));
         }
     }
 
@@ -169,7 +176,7 @@ export class Image extends Mark {
 
     clear_style(style_dict, indices?, elements?) {
     }
-    
+
     compute_view_padding() {
     }
 
@@ -178,6 +185,7 @@ export class Image extends Mark {
 
     set_style_on_elements(style, indices, elements?) {
     }
-    
+
     im: any;
+    scales: Dict<LinearScale>;
 }

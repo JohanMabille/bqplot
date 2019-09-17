@@ -18,6 +18,14 @@ import * as d3 from 'd3';
 import * as _ from 'underscore';
 import { BaseXSelector } from './Selector';
 
+import {
+    LinearScale
+} from './scales/LinearScale';
+
+import {
+    OrdinalScale
+} from './scales/OrdinalScale';
+
 export class IndexSelector extends BaseXSelector {
 
     render () {
@@ -166,7 +174,7 @@ export class IndexSelector extends BaseXSelector {
 
     set_range(array) {
         for(let iter = 0; iter < array.length; iter++) {
-            array[iter].set_range([0, this.width]);
+            array[iter].setRange([0, this.width]);
         }
     }
 
@@ -174,5 +182,6 @@ export class IndexSelector extends BaseXSelector {
     dirty: boolean;
     line: any;
     background: any;
+    scale: LinearScale | OrdinalScale;
 }
 

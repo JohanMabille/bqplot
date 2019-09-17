@@ -57,16 +57,16 @@ export class ImageModel extends MarkModel {
 
         if(x_scale) {
             if(!this.get("preserve_domain").x) {
-                x_scale.compute_and_set_domain(this.mark_data['x'], this.model_id + "_x");
+                x_scale.computeAndSetDomain(this.mark_data['x'], this.model_id + "_x");
             } else {
-                x_scale.del_domain([], this.model_id + "_x");
+                x_scale.delDomain([], this.model_id + "_x");
             }
         }
         if(y_scale) {
             if(!this.get("preserve_domain").y) {
-                y_scale.compute_and_set_domain(this.mark_data['y'], this.model_id + "_y");
+                y_scale.computeAndSetDomain(this.mark_data['y'], this.model_id + "_y");
             } else {
-                y_scale.del_domain([], this.model_id + "_y");
+                y_scale.delDomain([], this.model_id + "_y");
             }
         }
     }

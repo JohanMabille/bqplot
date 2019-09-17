@@ -14,6 +14,14 @@
  */
 
 import * as widgets from '@jupyter-widgets/base';
+import {
+    Dict
+} from '@jupyter-widgets/base';
+
+import {
+    GeoScale
+} from './scales/GeoScale';
+
 import * as d3 from 'd3';
 // var d3 =Object.assign({}, require("d3-selection"), require("d3-zoom"));
 const d3GetEvent = () => { return require("d3-selection").event };
@@ -421,4 +429,5 @@ export class Map extends Mark {
     transformed_g: any;
     zoom: any;
     model: MapModel;
+    scales: Dict<GeoScale>;
 };

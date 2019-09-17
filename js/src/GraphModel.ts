@@ -95,10 +95,10 @@ export class GraphModel extends MarkModel {
         if (x.length !== 0 && y.length !== 0) {
             if (color_scale) {
                 if (!this.get("preserve_domain").color) {
-                    color_scale.compute_and_set_domain(color,
+                    color_scale.computeAndSetDomain(color,
                                                        this.model_id + "_color");
                 } else {
-                    color_scale.del_domain([], this.model_id + "_color");
+                    color_scale.delDomain([], this.model_id + "_color");
                 }
             }
 
@@ -161,11 +161,11 @@ export class GraphModel extends MarkModel {
             if (scales.hasOwnProperty(key)) {
                 const scale = scales[key];
                 if (!this.get("preserve_domain")[key]) {
-                    scale.compute_and_set_domain(this.mark_data.map(function(d) {
+                    scale.computeAndSetDomain(this.mark_data.map(function(d) {
                         return d[key] || d[data_scale_key_map[key]];
                     }), this.model_id + key);
                 } else {
-                    scale.del_domain([], this.model_id + key);
+                    scale.delDomain([], this.model_id + key);
                 }
             }
        }

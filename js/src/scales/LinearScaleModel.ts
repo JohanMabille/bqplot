@@ -129,8 +129,8 @@ class LinearScaleModel extends ScaleModel {
     this.setDomain([min, max], id);
   }
 
-  protected min: number | Date | null;
-  protected max: number | Date | null;
+  min: number | Date | null;
+  max: number | Date | null;
   protected minFromData: boolean;
   protected maxFromData: boolean;
   protected globalMin: number | Date | null;

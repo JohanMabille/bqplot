@@ -104,6 +104,6 @@ class ColorScaleModel extends LinearScaleModel {
     return value;
   }
 
-  color_range: Array<number>;
+  colorRange: Array<number>;
   mid: DomainType | null;
 }

@@ -54,11 +54,11 @@ export class Lines extends Mark {
     set_ranges() {
         const x_scale = this.scales.x;
         if(x_scale) {
-            x_scale.set_range(this.parent.padded_range("x", x_scale.model));
+            x_scale.setRange(this.parent.padded_range("x", x_scale.model));
         }
         const y_scale = this.scales.y;
         if(y_scale) {
-            y_scale.set_range(this.parent.padded_range("y", y_scale.model));
+            y_scale.setRange(this.parent.padded_range("y", y_scale.model));
         }
     }
 
@@ -675,7 +675,7 @@ export class Lines extends Mark {
 
     clear_style(style_dict, indices?) {
     }
-    
+
     set_default_style(indices) {
     }
 

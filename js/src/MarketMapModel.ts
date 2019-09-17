@@ -13,8 +13,17 @@
  * limitations under the License.
  */
 
-import * as widgets from '@jupyter-widgets/base';
 import * as d3 from 'd3';
+
+import * as widgets from '@jupyter-widgets/base';
+import {
+    Dict
+} from '@jupyter-widgets/base';
+
+import {
+    ScaleModel
+} from './scales/ScaleModel';
+
 // var d3 =Object.assign({}, require("d3-scale"));
 import {BaseModel} from './BaseModel';
 import * as serialize from './serialize';
@@ -23,7 +32,7 @@ import { semver_range } from './version';
 export class MarketMapModel extends BaseModel {
 
     defaults() {
-        return {...BaseModel.prototype.defaults(), 
+        return {...BaseModel.prototype.defaults(),
             _model_name: "MarketMapModel",
             _view_name: "MarketMap",
             _model_module: "bqplot",
@@ -72,6 +81,11 @@ export class MarketMapModel extends BaseModel {
             tooltip_widget: null
         };
     }
+
+    getScales() : Dict<ScaleModel> {
+        return this.get('scales');
+    }
+
     static serializers = {...BaseModel.serializers,
         scales: { deserialize: widgets.unpack_models },
         axes: { deserialize: widgets.unpack_models },

@@ -93,23 +93,23 @@ export class GridHeatMapModel extends MarkModel {
         const color_scale = scales.color;
 
         if(!this.get("preserve_domain").row) {
-            y_scale.compute_and_set_domain(this.rows, this.model_id + "_row");
+            y_scale.computeAndSetDomain(this.rows, this.model_id + "_row");
         } else {
-            y_scale.del_domain([], this.model_id + "_row");
+            y_scale.delDomain([], this.model_id + "_row");
         }
 
         if(!this.get("preserve_domain").column) {
-            x_scale.compute_and_set_domain(this.columns, this.model_id + "_column");
+            x_scale.computeAndSetDomain(this.columns, this.model_id + "_column");
         } else {
-            x_scale.del_domain([], this.model_id + "_column");
+            x_scale.delDomain([], this.model_id + "_column");
         }
         if(color_scale !== null && color_scale !== undefined) {
             if(!this.get("preserve_domain").color) {
-                color_scale.compute_and_set_domain(this.mark_data.map(function(elem) {
+                color_scale.computeAndSetDomain(this.mark_data.map(function(elem) {
                     return elem.color;
                 }), this.model_id + "_color");
             } else {
-                color_scale.del_domain([], this.model_id + "_color");
+                color_scale.delDomain([], this.model_id + "_color");
             }
         }
     }
