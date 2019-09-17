@@ -516,7 +516,7 @@ export class Pie extends Mark {
     }
 
     compute_view_padding() {
-        const scales = this.model.get("scales");
+        const scales = this.model.getScales();
         const r = d3.max([this.model.get("radius"), this.model.get("inner_radius")]);
 
         const x_padding = (scales.x) ? (r+1) : 0;

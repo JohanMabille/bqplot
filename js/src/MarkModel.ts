@@ -14,6 +14,14 @@
  */
 
 import * as widgets from '@jupyter-widgets/base';
+import {
+    Dict
+} from '@jupyter-widgets/base';
+
+import {
+    ScaleModel
+} from './scales/ScaleModel';
+
 import { BaseModel } from './BaseModel';
 import { semver_range } from './version';
 import * as serialize from './serialize';
@@ -91,7 +99,7 @@ export class MarkModel extends BaseModel {
     }
 
     handle_destroy() {
-        this.unregister_all_scales(this.get("scales"));
+        this.unregister_all_scales(this.getScales());
     }
 
     get_key_for_dimension(dimension) {
@@ -119,6 +127,10 @@ export class MarkModel extends BaseModel {
         return data;
     }
 
+    getScales() : Dict<ScaleModel> {
+        return this.get('scales');
+    }
+
     static serializers = {
         ...BaseModel.serializers,
         scales: { deserialize: widgets.unpack_models },
@@ -127,7 +139,7 @@ export class MarkModel extends BaseModel {
     };
 
     dirty: boolean;
-    display_el_classes: Array<string>; 
+    display_el_classes: Array<string>;
     mark_data: any;
 
 }

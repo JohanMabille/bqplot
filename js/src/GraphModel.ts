@@ -50,7 +50,7 @@ export class GraphModel extends MarkModel {
         const y = this.get("y");
         const color = this.get("color") || [];
 
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const color_scale = scales.color;
 
         function get_shape_attrs(shape, attrs) {
@@ -111,7 +111,7 @@ export class GraphModel extends MarkModel {
     }
 
     update_link_data() {
-        const link_color_scale = this.get("scales").link_color;
+        const link_color_scale = this.getScales().link_color;
         this.link_data = this.get("link_data");
         let link_matrix = this.get("link_matrix");
         const link_color = this.get("link_color");
@@ -156,7 +156,7 @@ export class GraphModel extends MarkModel {
             return;
         }
 
-        const scales = this.get("scales");
+        const scales = this.getScales();
         for (let key in scales) {
             if (scales.hasOwnProperty(key)) {
                 const scale = scales[key];

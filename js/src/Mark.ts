@@ -14,6 +14,14 @@
  */
 
 import * as widgets from '@jupyter-widgets/base';
+import {
+    Dict
+} from '@jupyter-widgets/base';
+
+import {
+    Scale
+} from './scales/Scale';
+
 import * as d3 from 'd3';
 import 'd3-selection-multi';
 
@@ -105,13 +113,13 @@ export abstract class Mark extends widgets.WidgetView {
             this.stopListening(this.scales[key]);
         }
 
-        const scale_models = this.model.get("scales");
+        const scale_models = this.model.getScales();
         const that = this;
         const scale_promises = {};
         _.each(scale_models, function(model : widgets.WidgetModel, key) {
             scale_promises[key] = that.create_child_view(model);
         });
-        return widgets.resolvePromisesDict(scale_promises).then(function(scales) {
+        return widgets.resolvePromisesDict(scale_promises).then(function(scales: Dict<Scale>) {
             that.scales = scales;
             that.set_positional_scales();
             that.initialize_additional_scales();
@@ -169,13 +177,13 @@ export abstract class Mark extends widgets.WidgetView {
     }
 
     highlight_axes() {
-        _.each(this.model.get("scales"), function(model: any) {
+        _.each(this.model.getScales(), function(model: any) {
             model.trigger("highlight_axis");
         });
     }
 
     unhighlight_axes() {
-        _.each(this.model.get("scales"), function(model: any) {
+        _.each(this.model.getScales(), function(model: any) {
             model.trigger("unhighlight_axis");
         });
     }
@@ -498,7 +506,7 @@ export abstract class Mark extends widgets.WidgetView {
     event_listeners: any;
     event_metadata: any;
     parent: any;
-    scales: any;
+    scales: Dict<Scale>;
     selected_indices: any;
     selected_style: any;
     tooltip_div: any;

@@ -54,7 +54,7 @@ export class HistModel extends MarkModel {
 
     update_data() {
         let x_data = this.get("sample");
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const x_scale = scales.sample;
 
         // TODO: This potentially triggers domain_changed and therefore a
@@ -150,7 +150,7 @@ export class HistModel extends MarkModel {
         // things including the data which is to be plotted. So the x-domain
         // change is handled by the update_data function and only the
         // y-domain change is handled by this function.
-        const y_scale = this.get("scales").count;
+        const y_scale = this.getScales().count;
         if(!this.get("preserve_domain").count) {
             y_scale.set_domain([0, d3.max(this.mark_data, function(d: any): number {
                 return d.y;

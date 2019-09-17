@@ -257,7 +257,7 @@ export class MarketMap extends Figure {
     }
 
     update_domains() {
-        const color_scale_model = this.model.get("scales").color;
+        const color_scale_model = this.model.getScales().color;
         const color_data = this.model.get("color");
         if(color_scale_model && color_data.length > 0) {
             color_scale_model.compute_and_set_domain(color_data, this.model.model_id);
@@ -335,7 +335,7 @@ export class MarketMap extends Figure {
         for (let key in this.scales) {
             this.stopListening(this.scales[key]);
         }
-        const scale_models = this.model.get("scales");
+        const scale_models = this.model.getScales();
         const that = this;
         const scale_promises = {};
         _.each(scale_models, function(model : widgets.WidgetModel, key) {

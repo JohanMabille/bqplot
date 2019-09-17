@@ -473,7 +473,7 @@ export class OHLC extends Mark {
          */
         const that = this;
         let min_distance: any = Number.POSITIVE_INFINITY;
-        const scales = this.model.get("scales");
+        const scales = this.model.getScales();
         const x_scale = scales.x;
 
         for(var i = 1; i < that.model.mark_data.length; i++) {

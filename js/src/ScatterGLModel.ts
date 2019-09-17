@@ -48,7 +48,7 @@ export class ScatterGLModel extends MarkModel {
     update_domains() {
         // color scale needs an issue in DateScaleModel to be fixed. It
         // should be moved here as soon as that is fixed.
-        var scales = this.get("scales");
+        var scales = this.getScales();
         for (var key in scales) {
             if(scales.hasOwnProperty(key) && key != "color") {
                 var scale = scales[key];

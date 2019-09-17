@@ -83,7 +83,7 @@ export class MapModel extends MarkModel {
     }
 
     update_domains() {
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const color_scale = scales.color;
         this.color_data = this.get("color");
         if(color_scale !== null && color_scale !== undefined) {

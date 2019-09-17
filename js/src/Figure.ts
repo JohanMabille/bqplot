@@ -14,6 +14,11 @@
  */
 
 import * as widgets from '@jupyter-widgets/base';
+
+import {
+    Scale
+} from './scales/Scale';
+
 import * as d3 from 'd3';
 import 'd3-selection-multi';
 // var d3 =Object.assign({}, require("d3-selection"), require("d3-selection-multi"));
@@ -969,8 +974,8 @@ export class Figure extends widgets.DOMWidgetView {
     popper_reference: any;
     popper: any;
     renderer: any;
-    scale_x: any;
-    scale_y: any;
+    scale_x: Scale;
+    scale_y: Scale;
     svg: d3.Selection<SVGElement, any, any, any>;
     svg_background: d3.Selection<SVGElement, any, any, any>;
     title: any;

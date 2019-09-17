@@ -94,7 +94,7 @@ export class PieModel extends MarkModel {
             return;
         }
         const color = this.get("color");
-        const color_scale = this.get("scales").color;
+        const color_scale = this.getScales().color;
         if(color_scale) {
             if(!this.get("preserve_domain").color) {
                 color_scale.compute_and_set_domain(color, this.model_id + "_color");
@@ -108,7 +108,7 @@ export class PieModel extends MarkModel {
         if(!this.mark_data) {
             return;
         }
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const x_scale = scales.x;
         const y_scale = scales.y;
 

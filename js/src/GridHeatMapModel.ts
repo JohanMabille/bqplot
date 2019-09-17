@@ -88,7 +88,7 @@ export class GridHeatMapModel extends MarkModel {
         if(!this.mark_data) {
             return;
         }
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const y_scale = scales.row, x_scale = scales.column;
         const color_scale = scales.color;
 
@@ -122,7 +122,7 @@ export class GridHeatMapModel extends MarkModel {
         //based on the data, identify the mode in which the heatmap should
         //be plotted.
         const modes : any = {};
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const row_scale = scales.row;
         const column_scale = scales.column;
         const data_nrow = this.colors.length;

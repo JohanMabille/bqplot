@@ -14,6 +14,14 @@
  */
 
 import * as widgets from '@jupyter-widgets/base';
+import {
+    Dict
+} from '@jupyter-widgets/base';
+
+import {
+    Scale
+} from './scales/Scale';
+
 import { BaseModel } from './BaseModel';
 import { semver_range } from './version';
 import * as _ from 'underscore';
@@ -21,7 +29,7 @@ import * as _ from 'underscore';
 export class PanZoomModel extends BaseModel {
 
     defaults() {
-        return {...BaseModel.prototype.defaults(), 
+        return {...BaseModel.prototype.defaults(),
             _model_name: "PanZoomModel",
             _view_name: "PanZoom",
             _model_module: "bqplot",
@@ -41,7 +49,7 @@ export class PanZoomModel extends BaseModel {
     }
 
     reset_scales() {
-        widgets.resolvePromisesDict(this.get("scales")).then((scales: any) => {
+        widgets.resolvePromisesDict(this.getScales()).then((scales: Dict<Scale>) => {
             _.each(Object.keys(scales), (k) => {
                 _.each(scales[k], (s: any, i) => {
                     s.set_state(this.scales_states[k][i]);
@@ -52,7 +60,7 @@ export class PanZoomModel extends BaseModel {
 
     snapshot_scales() {
         // Save the state of the scales.
-        widgets.resolvePromisesDict(this.get("scales")).then((scales: any) => {
+        widgets.resolvePromisesDict(this.getScales()).then((scales: Dict<Scale>) => {
             this.scales_states = Object.keys(scales).reduce((obj, key) => {
                 obj[key] = scales[key].map((s) => {
                     return s.get_state()

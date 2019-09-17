@@ -149,7 +149,7 @@ export class BarsModel extends markmodel.MarkModel {
             return;
         }
         const color = this.get("color") || [];
-        const color_scale = this.get("scales").color;
+        const color_scale = this.getScales().color;
         const color_mode = this.get("color_mode");
         const apply_color_to_groups = ((color_mode === "group") ||
                                      (color_mode === "auto" && !(this.is_y_2d)));
@@ -172,7 +172,7 @@ export class BarsModel extends markmodel.MarkModel {
         if(!this.mark_data) {
             return;
         }
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const dom_scale = scales.x;
         const range_scale = scales.y;
 

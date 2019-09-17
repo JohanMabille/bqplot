@@ -46,7 +46,7 @@ export class PanZoom extends interaction.Interaction {
     }
 
     update_scales() {
-        const scales = this.model.get("scales");
+        const scales = this.model.getScales();
         const that = this;
         this.scale_promises = widgets.resolvePromisesDict({
             "x": Promise.all((scales.x || []).map(function(model : widgets.WidgetModel) {
@@ -78,7 +78,7 @@ export class PanZoom extends interaction.Interaction {
     }
 
     mousedown () {
-        const scales = this.model.get("scales");
+        const scales = this.model.getScales();
         this.active = true;
         this.d3el.style("cursor", "move");
         this.previous_pos = d3.mouse(this.el);
@@ -107,7 +107,7 @@ export class PanZoom extends interaction.Interaction {
             if (this.previous_pos === undefined) {
                 this.previous_pos = mouse_pos;
             }
-            const scales = this.model.get("scales");
+            const scales = this.model.getScales();
             const that = this;
             this.scale_promises.then(function(scale_views) {
                 const xscale_views = scale_views.x;
@@ -165,7 +165,7 @@ export class PanZoom extends interaction.Interaction {
                 } else {
                     this.d3el.style("cursor", "zoom-out");
                 }
-                const scales = this.model.get("scales");
+                const scales = this.model.getScales();
                 const that = this;
                 this.scale_promises.then(function(scale_views) {
                     let domain;

@@ -150,7 +150,7 @@ export class LinesModel extends MarkModel {
         if(!this.mark_data) {
             return;
         }
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const x_scale = scales.x, y_scale = scales.y;
         const color_scale = scales.color;
 
@@ -272,7 +272,7 @@ export class FlexLineModel extends LinesModel {
         if(!this.mark_data) {
             return;
         }
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const x_scale = scales.x, y_scale = scales.y;
         const color_scale = scales.color;
         const width_scale = scales.width;

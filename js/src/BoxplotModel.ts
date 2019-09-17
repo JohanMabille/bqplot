@@ -74,7 +74,7 @@ export class BoxplotModel extends MarkModel {
         // color scale needs an issue in DateScaleModel to be fixed. It
         // should be moved here as soon as that is fixed.
 
-        const scales = this.get("scales");
+        const scales = this.getScales();
         const x_scale = scales.x;
         const y_scale = scales.y;
 
